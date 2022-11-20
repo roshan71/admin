@@ -123,7 +123,27 @@ export default function Sidebar() {
               </div>
                 </Link>
               </li>
-              
+              <li className="items-center">
+                <Link href="/User">
+                <div
+                    className={
+                      "text-xs uppercase py-3 font-bold block " +
+                     "text-lightBlue-500 hover:text-lightBlue-600"
+                       
+                    }
+                  >
+                    <i
+                      className={
+                        "fas fa-solid fa-cubes mr-2 text-sm " +
+                        (router.pathname.indexOf("/admin/dashboard") !== -1
+                          ? "opacity-75"
+                          : "text-blueGray-300")
+                      }
+                    ></i>{" "}
+                    Properties
+              </div>
+                </Link>
+              </li>
             </ul>
 
                      </div>

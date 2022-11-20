@@ -1,9 +1,11 @@
-import Form_Layout from "../../components/layouts/Form_Layout"
+import FormLayout from "../../components/layouts/formLayout"
 const User=()=>{
-    return(
+   
+      return(
         <>
       
-        <Form_Layout></Form_Layout>
+        <FormLayout>
+        </FormLayout>
         </>
     )
 }

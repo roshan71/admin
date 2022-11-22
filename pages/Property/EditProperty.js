@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {floor} from "mathjs";
-import { collection, addDoc,getFirestore } from "firebase/firestore"; 
+import { collection, getDoc,setDoc,getFirestore,doc } from "firebase/firestore"; 
 import { getStorage, ref,
   uploadBytes,
   getDownloadURL,} from "firebase/storage";
@@ -25,6 +25,35 @@ export default function Properties() {
     
     const [isUploaded,setUploaeded]=useState();
     const [isUploaded1,setUploaeded1]=useState();
+   
+    const roomId=router.query['id'];
+  
+    useEffect(() => {
+        getProperty();
+      }, []);
+    const getProperty=async()=>{
+         const db = getFirestore(app);
+         const docRef=doc(db,'room',roomId.toString())
+         
+         try {
+            const docSnap = await getDoc(docRef);
+            console.log(docSnap.data());
+            const d=docSnap.data();
+            setAddress(d['address'])
+            setName(d['name'])
+            setPrice(d['price'])
+            setCurrency(d['currency'])
+            setShortDesc(d['shortDes'])
+            setLongDesc(d['longDes'])
+            setImgUrlList(d['imgList'])
+            setImage(d['img'])
+            setAmenities(d['amenities'])
+            
+        } catch(error) {
+            console.log(error)
+        }
+       
+    }
     const upload = async (e) => {
       e.preventDefault()
       if (image !== null) {
@@ -89,11 +118,12 @@ export default function Properties() {
       "imgList":imgUrlList
     }
       const db = getFirestore(app);
-    const docRef = await addDoc(collection(db, "room"), data);
+    const docRef = doc(db,'room',roomId );
+    await setDoc(docRef,data);
     if(docRef.id){
-      alert("Added room Successfully!!");
-      router.push("/Property")
-    }
+        alert("Added room Successfully!!");
+        router.push("/Property")
+      }
       
      
     console.log(docRef);
@@ -153,11 +183,11 @@ export default function Properties() {
         setUploaeded1(true)
       
     }
+  
     const handleCancel=(e)=>{
-      e.preventDefault();
-      router.push("/Property");
-    }
-
+        e.preventDefault();
+        router.push("/Property");
+      }
    
     return (
       <>
@@ -182,6 +212,7 @@ export default function Properties() {
                         <input
                           type="text"
                           name="property-name"
+                          value={name}
                           id="first-name"
                           onChange={e=>setName(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -194,6 +225,7 @@ export default function Properties() {
                         </label>
                         <input
                           type="text"
+                          value={address}
                           name="street-address"
                           id="street-address"
                           onChange={e=>setAddress(e.target.value)}
@@ -208,6 +240,7 @@ export default function Properties() {
                         <input
                           type="text"
                           name="currency"
+                          value={currrency}
                           id="currency"
                           onChange={e=>setCurrency(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -220,6 +253,7 @@ export default function Properties() {
                         <input
                           type="number"
                           name="price"
+                          value={price}
                           id="price"
                           onChange={e=>setPrice(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -236,7 +270,7 @@ export default function Properties() {
                         <input
                         accept="image/png, image/gif, image/jpeg" 
                           type="file"
-                         
+
                           
                           onChange={handleProfile}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -294,6 +328,7 @@ export default function Properties() {
                         <input
                           type="text"
                           name="short-description"
+                          value={short}
                           id="short-desc"
                           onChange={e=>setShortDesc(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -307,6 +342,7 @@ export default function Properties() {
                         <textarea
                           name="long-desc"
                           id="long-desc"
+                          value={long}
                           rows="4"
                           onChange={e=>setLongDesc(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -403,7 +439,7 @@ export default function Properties() {
                   <button
                   
                   type="submit"
-                  className="inline-flex justify-center rounded-md mr-3 border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="inline-flex justify-center mr-3 rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   onClick={handleCancel}
                 >
                   Cancel

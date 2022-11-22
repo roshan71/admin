@@ -1,12 +1,17 @@
 import SideBar from "../SideBar";
 import Form from "../Forms/Form";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getUsers } from "../../utils/user";
+import { useRouter } from "next/router";
 import Grid from '@mui/material/Grid';
 import Image from "next/image";
 import UserCard from "../Cards/UserCard";
 import { height } from "@mui/system";
-const FormLayout = ({ children }) => {
+
+
+function FormLayout({children}){
+  const router=useRouter();
   const [userList, setUserList] = useState([]);
   useEffect(() => {
     setUser();
@@ -14,16 +19,32 @@ const FormLayout = ({ children }) => {
   const setUser = async () => {
     var list = await getUsers();
     setUserList(list);
+    // console.log(list[0])
   };
+    const handleAdd=(e)=>{
+    e.preventDefault();
+    router.pathname.indexOf("/User/addUser")
+  }
   return (
     <>
-    <div className=" md:ml-64  " style={{backgroundColor: "rgb(74 222 128)" ,minHeight:"100vh"}}>
+    <div className=" md:ml-64  " style={{backgroundColor: "rgb(220 252 231)" ,minHeight:"100vh"}}>
       <SideBar />
-      
+      <Link href="/User/addUser">
+                <div
+                    className={"inline-flex m-2 justify-center rounded-md border border-transparent bg-white py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      
+                       
+                    }
+                  >
+                    
+                    Add User
+              </div>
+                </Link>
 
 {userList.map((e) => ( 
-            <UserCard name={e['name']} email={e['email']}/>
-          ))}
+        
+            <UserCard  id={e[0]["id"]}name={e[1]['name']} email={e[1]['email']}/>
+       ))}
      
       </div>
     </>

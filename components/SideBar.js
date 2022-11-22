@@ -8,7 +8,7 @@ export default function Sidebar() {
   const router = useRouter();
   return (
     <>
-      <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-blueGray-800 flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
+      <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl  flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"style={{backgroundColor:'#163e6f'}}>
         <div className="md:flex-col  md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
           {/* Toggler */} 
           <button
@@ -35,7 +35,7 @@ export default function Sidebar() {
                 <div className="w-6/12">
                   <Link href="/">
                   
-                      Notus NextJS
+                      Admin Panel
                   
                   </Link>
                 </div>
@@ -82,7 +82,7 @@ export default function Sidebar() {
                 </Link>
               </li>
               <li className="items-center">
-                <Link href="/admin/dashboard">
+                <Link href="/SpecialRequest">
                 <div
                     className={
                       "text-xs uppercase py-3 font-bold block " +
@@ -93,12 +93,12 @@ export default function Sidebar() {
                     <i
                       className={
                         "fas fa-eye mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/dashboard") !== -1
+                        (router.pathname.indexOf("/SpecialRequest") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    View Request
+                    Special Request
               </div>
                 </Link>
               </li>
@@ -114,7 +114,7 @@ export default function Sidebar() {
                     <i
                       className={
                         "fas fa-user mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/dashboard") !== -1
+                        (router.pathname.indexOf("/User") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
@@ -123,8 +123,9 @@ export default function Sidebar() {
               </div>
                 </Link>
               </li>
+            
               <li className="items-center">
-                <Link href="/User">
+                <Link href="/Property">
                 <div
                     className={
                       "text-xs uppercase py-3 font-bold block " +
@@ -135,12 +136,33 @@ export default function Sidebar() {
                     <i
                       className={
                         "fas fa-solid fa-cubes mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/dashboard") !== -1
+                        (router.pathname.indexOf("Property") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    Properties
+                    Property
+              </div>
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link href="/Booking">
+                <div
+                    className={
+                      "text-xs uppercase py-3 font-bold block " +
+                     "text-lightBlue-500 hover:text-lightBlue-600"
+                       
+                    }
+                  >
+                    <i
+                      className={
+                        "fas fa-solid fa-book mr-2 text-sm " +
+                        (router.pathname.indexOf("/Booking") !== -1
+                          ? "opacity-75"
+                          : "text-blueGray-300")
+                      }
+                    ></i>{" "}
+                    Booking
               </div>
                 </Link>
               </li>

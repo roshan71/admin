@@ -21,7 +21,7 @@ const Property=(e)=>{
    
     <div>
     {requestList.map((e) => ( 
-            <RequestCard id={e[0]['id']} message={e[1]['message']} userid={e[1]['user']}/>
+            <RequestCard key={e[0]['id']} id={e[0]['id']} message={e[1]['message']} userid={e[1]['user']}/>
 
           ))}
       

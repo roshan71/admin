@@ -25,7 +25,7 @@ const Booking=(e)=>{
    
     <div>
     {bookingList.map((e) => ( 
-            <BookingCard id={e[0]['id']} custName={e[1]['custName']} bookDate={e[1]['bookDate']} price={e[1]['amount']} status={e[1]['status']}/>
+            <BookingCard key={e[0]['id']} id={e[0]['id']} custName={e[1]['custName']} bookDate={e[1]['bookDate']} price={e[1]['amount']} status={e[1]['status']}/>
 
           ))}
       

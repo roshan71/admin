@@ -15,11 +15,7 @@ const Property=(e)=>{
       setRoomList(list);
     };
 
-    const abc=()=>{
-      roomList.map((e) => ( 
-        <PropertyCard id={e[0]['id']} name={e[1]['name']} addr={e[1]['address']} price={e[1]['price']} currency={e[1]['currency']} desc={e[1]['shortDes']} imgsrc={e[1]['img']}/>
-      ))
-    }
+    
     return(<>
      <Sidebar/>
     
@@ -33,7 +29,7 @@ const Property=(e)=>{
     
      <div>
      {roomList.map((e) => ( 
-            <PropertyCard id={e[0]['id']} name={e[1]['name']} addr={e[1]['address']} price={e[1]['price']} currency={e[1]['currency']} desc={e[1]['shortDes']} imgsrc={e[1]['img']}/>
+            <PropertyCard  key={e[0]['id']} id={e[0]['id']} name={e[1]['name']} addr={e[1]['address']} price={e[1]['price']} currency={e[1]['currency']} desc={e[1]['shortDes']} imgsrc={e[1]['img']}/>
           ))}
       
      </div>

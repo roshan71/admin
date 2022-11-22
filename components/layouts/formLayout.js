@@ -43,7 +43,7 @@ function FormLayout({children}){
 
 {userList.map((e) => ( 
         
-            <UserCard  id={e[0]["id"]}name={e[1]['name']} email={e[1]['email']}/>
+            <UserCard key={e[0]["id"]} id={e[0]["id"]}name={e[1]['name']} email={e[1]['email']}/>
        ))}
      
       </div>

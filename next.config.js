@@ -4,6 +4,12 @@ const nextConfig = {
   eslint:{
     ignoreDuringBuilds:true,
   },
+  images:{
+    loader:"akamai",
+    path:"",
+  }
+
+  ,
   swcMinify: true,
 }
 

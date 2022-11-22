@@ -10,22 +10,24 @@ const Property=(e)=>{
      }, []);
      const setRequest = async () => {
        var list = await getRequest();
-       console.log(list);
+    
    setRequestList(list);
     };
-    console.log(requestList)
+ 
     return(<>
      <Sidebar/>
      <div className=" md:ml-64  " style={{backgroundColor: "rgb(220 252 231)" ,padding:"10px",minHeight:"100vh"}}>
-     <div  >
-    
-    <div>
+   <div  >
    
-        
-     
-    </div>
+    <div>
+    {requestList.map((e) => ( 
+            <RequestCard id={e[0]['id']} message={e[1]['message']} userid={e[1]['user']}/>
+
+          ))}
+      
      </div>
-    </div>
+     </div>
+     </div>
     
      
 

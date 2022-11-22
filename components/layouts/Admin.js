@@ -3,7 +3,7 @@ import React from "react";
 // components
 
 
-import Sidebar from "../Sidebar.js";
+import Sidebar from "../SideBar";
 import HeaderStats from "../Cards/HeaderStats";
 
 

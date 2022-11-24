@@ -1,7 +1,7 @@
 import { async } from '@firebase/util';
 import { requestToBodyStream } from 'next/dist/server/body-streams';
 import React, { useEffect, useState } from 'react';
-import { collection, addDoc,getFirestore,query,where,getDocs } from "firebase/firestore"; 
+import { collection, addDoc,getFirestore,query,where,getDocs, setDoc,doc } from "firebase/firestore"; 
 import { getStorage } from "firebase/storage";
 import { app } from "../../utils/firebase";
 import { useRouter } from 'next/router';
@@ -26,7 +26,11 @@ export default function Form() {
   const [isUploaded, setUploaeded] = useState(false);
 
   const handleImage = async (e) => {
-    setImageUpload(e.target.files[0])
+    if (e.target.files && e.target.files[0]) {
+      const img = e.target.files[0];
+      setImageUpload(img);
+  }
+   
   }
   const upload = async (e) => {
     e.preventDefault()
@@ -54,44 +58,50 @@ export default function Form() {
 
 
 
+      if(isUploaded){
 
 
+      const data = {
 
-    const data = {
+        "name": name1.toString(),
+        "location": address1.toString(),
+        "email": email1.toString(),
+        "profile": imageUpload!=null?imageUpload.toString():""
 
-      "name": name1.toString(),
-      "location": address1.toString(),
-      "email": email1.toString(),
-      "profile": imageUpload!=null?imageUpload.toString():""
-
-    }
- 
-
-    const db = getFirestore(app);
-    const already = query(collection(db, 'users'), where('email', '==', email1))
-    const querySnapshot = await getDocs(already)
+      }
   
-    if (querySnapshot.docs.length===0){
-      const docRef = await addDoc(collection(db, "users"), data);
-      if(docRef.id){
-      alert("Added User Successfully!!");
-      const auth = getAuth();
-      createUserWithEmailAndPassword(auth, email1, password)
-      .then((userCredential) => {
-     
-      router.push("/User")
-      })
-      .catch((error) => {
-      const errorCode = error.code;
-      alert("Something Wents Wrong!");
-      const errorMessage = error.message;
-    // ..
-     });
-    }
-    }
-else{
-  alert("Already Exists Email!!!");
-}
+
+      const db = getFirestore(app);
+      const already = query(collection(db, 'users'), where('email', '==', email1))
+      const querySnapshot = await getDocs(already)
+      
+      if (querySnapshot.docs.length===0){
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, email1, password)
+        .then(async(userCredential) => {
+        
+          // console.log(userCredential.user.uid)
+          const docRef =doc(db,'users',userCredential.user.uid)
+          await setDoc(docRef,data)
+          // const docRef = await addDoc(collection(db, "users","userCredential.user.uid"), data);
+        router.push("/User")
+        })
+        .catch((error) => {
+          console.log(error)
+        const errorCode = error.code;
+        alert("Something Wents Wrong!");
+        const errorMessage = error.message;
+      // ..
+      });
+       
+        
+      
+      }
+  else{
+    alert("Already Exists Email!!!");
+  }}
+  else{
+    alert("Please Upload Image");  }
 }
 
   

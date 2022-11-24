@@ -11,8 +11,8 @@ const Property=(e)=>{
     }, []);
     const setRoom = async () => {
       var list = await getRoom();
-      console.log(list);
       setRoomList(list);
+    
     };
 
     

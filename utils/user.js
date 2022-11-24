@@ -9,7 +9,7 @@ const usersCol = collection(db, 'users');
 
 
   const userList = usersSnapshot.docs.map(doc => [{"id":doc.id},doc.data()]);
-  // console.log(userList)
+
   return userList;
 };
 

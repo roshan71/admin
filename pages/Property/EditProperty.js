@@ -28,7 +28,7 @@ export default function EditProperty () {
     const [isUploaded1,setUploaeded1]=useState();
    
     const roomId=router.query['id'];
-    console.log(typeof(roomId));
+
    
     useEffect(() => {
         getProperty();
@@ -163,7 +163,7 @@ export default function EditProperty () {
     const docRef=doc(db,'room',roomId)
     await setDoc(docRef,data,{merge:true});
     if(docRef.id){
-        alert("Added room Successfully!!");
+        alert("Updated room Successfully!!");
         router.push("/Property")
       }
       

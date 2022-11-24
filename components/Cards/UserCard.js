@@ -14,14 +14,14 @@ const UserCard =(props)=>{
      
       }, []);
     const handleDelete=async(e,id)=>{
-        console.log(id)
+       
         e.stopPropagation()
         const db = getFirestore(app);
         const docRef = doc(db,'users',id);
       await deleteDoc(docRef).then(()=>{
         alert("User Deleted SuccessFully")
         router.reload(window.location.pathname);
-        console.log("Dle")
+       
       })
       //showAlert("error","Deleted");
       

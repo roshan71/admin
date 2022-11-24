@@ -3,7 +3,7 @@ import React from "react";
 import CardStats from "./CardStats.js";
 
 export default function HeaderStats(props) {
-  console.log(".../",props.user)
+
   return (
     <>
       {/* Header */}

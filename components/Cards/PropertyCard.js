@@ -10,7 +10,7 @@ const PropertyCard =(props)=>{
    
    
    const handleDelete=async(e,id)=>{
-      console.log(id)
+      
       e.stopPropagation()
       const db = getFirestore(app);
       const docRef = doc(db,'room',id);

@@ -34,11 +34,11 @@ export default function Form() {
       const storage = getStorage();
       const imageref = ref(storage, `images/${imageUpload.name + v4()}`);
       uploadBytes(imageref, imageUpload).then((snapshot) => {
-        console.log("isdivb")
+    
         setUploaeded(true)
-        console.log(isUploaded)
+      
         getDownloadURL(snapshot.ref).then((url) => {
-          console.log(url)
+        
           setImageUpload(url);
         });
       });
@@ -50,7 +50,7 @@ export default function Form() {
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //  console.log(name1,email1,address1,imageUpload);
+
 
 
 
@@ -65,17 +65,12 @@ export default function Form() {
       "profile": imageUpload!=null?imageUpload.toString():""
 
     }
-    //     console.log(data)
-    //          const db = getFirestore(app);
-    //  const usersCol = collection(db, 'users');
-    //    const usersSnapshot = await addDoc(usersCol,{data});
+ 
 
-    // const userList = usersSnapshot.docs.map(doc => doc.data());
-    //   console.log(userList);
     const db = getFirestore(app);
     const already = query(collection(db, 'users'), where('email', '==', email1))
     const querySnapshot = await getDocs(already)
-    console.log(querySnapshot.docs.length)
+  
     if (querySnapshot.docs.length===0){
       const docRef = await addDoc(collection(db, "users"), data);
       if(docRef.id){
@@ -83,8 +78,7 @@ export default function Form() {
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, email1, password)
       .then((userCredential) => {
-      // Signed in 
-      console.log("***** SuccessFull")
+     
       router.push("/User")
       })
       .catch((error) => {
@@ -99,9 +93,6 @@ else{
   alert("Already Exists Email!!!");
 }
 }
-  
-    //  await pushUser.doc("ivhidhfvihbhvidf").set(data)
-    // console.log(docRef);
 
   
   const handleCancel=(e)=>{

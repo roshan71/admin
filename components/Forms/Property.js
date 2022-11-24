@@ -31,11 +31,11 @@ export default function Property() {
         const storage = getStorage();
         const imageref = ref(storage, `images/${image.name + v4()}`);
         uploadBytes(imageref, image).then((snapshot) => {
-          console.log("isdivb")
+     
           setUploaeded(true)
-          console.log(isUploaded)
+        
           getDownloadURL(snapshot.ref).then((url) => {
-            console.log(url)
+           
             setImage(url);
           });
         });
@@ -46,7 +46,7 @@ export default function Property() {
       e.preventDefault()
       if(image!=="" && imgUrlList.length!==0){
      
-      console.log('0000000000000000000'+checked.includes(0));
+  
       if(!checked.includes(0)){
         amenities.push('TV');
       }
@@ -82,9 +82,9 @@ export default function Property() {
     // promises.push(uploadBytes(storageRef, file, metadata).then(uploadResult => {return getDownloadURL(uploadResult.ref)}))
     
   }
-      console.log(amenities)
 
-    console.log(imgUrlList)
+
+
     var resultInSeconds=floor(new Date().getTime() / 1000);
     const data={
       "id": Number  (resultInSeconds),
@@ -106,7 +106,7 @@ export default function Property() {
     }
       
      
-    console.log(docRef);}
+   }
     else{
      
       alert("Please Upload Images!!")
@@ -151,11 +151,11 @@ export default function Property() {
          
           const imageref = ref(storage, `images/${imgList[i].name + v4()}`);
           uploadBytes(imageref, imgList[i]).then((snapshot) => {
-            console.log("isdivb")
+      
             
-            console.log(isUploaded)
+        
             getDownloadURL(snapshot.ref).then((url) => {
-              console.log(url)
+           
               
               urlList.push(url.toString())
             });

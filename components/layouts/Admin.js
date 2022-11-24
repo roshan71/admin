@@ -28,7 +28,7 @@ export default function   Admin({ children }) {
   const setUser = async () => {
     var list = await getUsers();
     setUserList(list);
-    // console.log(list[0])
+
   };
  
   const setRoom = async () => {

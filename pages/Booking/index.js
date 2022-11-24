@@ -11,7 +11,7 @@ const Booking=(e)=>{
     }, []);
     const setBooking = async () => {
       var list = await getBooking();
-      console.log(list);
+
       setBookingList(list);
 
    

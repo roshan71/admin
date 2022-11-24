@@ -19,7 +19,7 @@ function FormLayout({children}){
   const setUser = async () => {
     var list = await getUsers();
     setUserList(list);
-    // console.log(list[0])
+
   };
     const handleAdd=(e)=>{
     e.preventDefault();

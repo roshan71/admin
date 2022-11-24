@@ -15,7 +15,7 @@ const RequestCard =(props)=>{
 
     const getUser=async()=>{
         const db=getFirestore(app);
-        console.log(props.userid)
+      
         const docRef=doc(db,'users',props.userid.toString())
         const docSnap = await getDoc(docRef);
         const d=docSnap.data();

@@ -38,7 +38,7 @@ export default function UserEdit(props) {
          
          try {
             const docSnap = await getDoc(docRef);
-            console.log(docSnap.data());
+      
             const d=docSnap.data();
             setName(d['name'])
             setEmail(d['email'])
@@ -61,11 +61,11 @@ export default function UserEdit(props) {
         const storage = getStorage();
         const imageref = ref(storage, `images/${imageUpload.name + v4()}`);
         uploadBytes(imageref, imageUpload).then((snapshot) => {
-          console.log("isdivb")
+  
           setUploaeded(true)
-          console.log(isUploaded)
+      
           getDownloadURL(snapshot.ref).then((url) => {
-            console.log(url)
+           
             setImageUpload(url);
           });
         });
@@ -94,7 +94,7 @@ export default function UserEdit(props) {
       const docRef=doc(db,'users',userId);
       await setDoc(docRef,data).then(()=>{
         
-        alert("Updated room Successfully!!");
+        alert("Updated User Successfully!!");
         router.push("/User")
       })
       

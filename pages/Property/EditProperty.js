@@ -9,7 +9,7 @@ import { v4 } from 'uuid';
 import { useRouter } from 'next/router';
 
 import { async } from '@firebase/util';
-export default function Properties () {
+export default function EditProperty () {
     const [name, setName] = useState();
 
     const router=useRouter();
@@ -28,8 +28,8 @@ export default function Properties () {
     const [isUploaded1,setUploaeded1]=useState();
    
     const roomId=router.query['id'];
-    const db = getFirestore(app);
-    const docRef=doc(db,'room',roomId.toString())
+    console.log(typeof(roomId));
+   
     useEffect(() => {
         getProperty();
         
@@ -38,6 +38,8 @@ export default function Properties () {
         
          
          try {
+          const db = getFirestore(app);
+          const docRef=doc(db,'room',roomId)
             const docSnap = await getDoc(docRef);
             const d=docSnap.data();
             setAddress(d['address'])
@@ -157,7 +159,8 @@ export default function Properties () {
       "img":image.toString(), 
       "imgList":imgUrlList
     }
-     
+    const db = getFirestore(app);
+    const docRef=doc(db,'room',roomId)
     await setDoc(docRef,data,{merge:true});
     if(docRef.id){
         alert("Added room Successfully!!");

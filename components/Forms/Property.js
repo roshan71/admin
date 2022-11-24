@@ -9,7 +9,7 @@ import { v4 } from 'uuid';
 import { useRouter } from 'next/router';
 
 import { async } from '@firebase/util';
-export default function Properties() {
+export default function Property() {
     const [name, setName] = useState();
     const router=useRouter();
     const [address, setAddress] = useState();

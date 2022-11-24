@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import {floor} from "mathjs";
 import { collection, getDoc,setDoc,getFirestore,doc } from "firebase/firestore"; 
 import { getStorage, ref,
@@ -9,8 +9,9 @@ import { v4 } from 'uuid';
 import { useRouter } from 'next/router';
 
 import { async } from '@firebase/util';
-export default function Properties() {
+export default function Properties () {
     const [name, setName] = useState();
+
     const router=useRouter();
     const [address, setAddress] = useState();
     const [currrency, setCurrency] = useState();
@@ -21,23 +22,23 @@ export default function Properties() {
     const [imgList,setImgList] = useState([]);
     const [imgUrlList,setImgUrlList] = useState([]);
     const [amenities, setAmenities] = useState([]);
-    const [checked, setChecked] = React.useState([0, 1,2,3,]);
-    
+    const [checked, setChecked] = React.useState([]);
+    const [isChecked,setIsChecked]=useState([]);
     const [isUploaded,setUploaeded]=useState();
     const [isUploaded1,setUploaeded1]=useState();
    
     const roomId=router.query['id'];
-  
+    const db = getFirestore(app);
+    const docRef=doc(db,'room',roomId.toString())
     useEffect(() => {
         getProperty();
+        
       }, []);
     const getProperty=async()=>{
-         const db = getFirestore(app);
-         const docRef=doc(db,'room',roomId.toString())
+        
          
          try {
             const docSnap = await getDoc(docRef);
-            console.log(docSnap.data());
             const d=docSnap.data();
             setAddress(d['address'])
             setName(d['name'])
@@ -47,48 +48,90 @@ export default function Properties() {
             setLongDesc(d['longDes'])
             setImgUrlList(d['imgList'])
             setImage(d['img'])
-            setAmenities(d['amenities'])
             
+            setChecked([])
+           for(var i=0;i<d['amenities'].length;i++){
+            if(d['amenities'][i]==='Tv'){
+             checked.push(0)
+            }
+            else if(d['amenities'][i]==='WiFi'){
+             
+              checked.push(1)
+            }
+      
+             else if(d['amenities'][i]==='Pets Allowed'){
+          
+             
+              checked.push(3)
+             }
+             else if(d['amenities'][i]==='Mini Bar'){
+          
+             
+              checked.push(4)
+             }
+             else if(d['amenities'][i]==='Bathroom'){
+          
+             
+              checked.push(5)
+             }
+             else if(d['amenities'][i]==='Air Conditioning'){
+          
+             
+              checked.push(6)
+             }
+           
+             
+
+
+           }
+           setChecked([...checked])
         } catch(error) {
             console.log(error)
         }
        
     }
+
     const upload = async (e) => {
       e.preventDefault()
       if (image !== null) {
         const storage = getStorage();
         const imageref = ref(storage, `images/${image.name + v4()}`);
         uploadBytes(imageref, image).then((snapshot) => {
-          console.log("isdivb")
+   
           setUploaeded(true)
-          console.log(isUploaded)
+       
           getDownloadURL(snapshot.ref).then((url) => {
-            console.log(url)
+       
             setImage(url);
           });
         });
       }
     }
     const handleSubmit=async(e)=>{
-     
-      console.log('0000000000000000000'+checked.includes(0));
-      if(!checked.includes(0)){
-        amenities.push('Tv');
-      }
-      if(!checked.includes(1)){
-        amenities.push('WiFi');
-      }
-      if(!checked.includes(2)){
-        amenities.push('Hot Water');
-      }
-      if(!checked.includes(3)){
-        amenities.push('Pet Allowed');
-      }
-      e.preventDefault(
-      );
-      const promises = [];
 
+      const t=[]
+      if(checked.includes(0)  ){
+        t.push('Tv')
+      }
+      if(checked.includes(1)  ){
+      t.push('WiFi')
+      }
+      
+      if(checked.includes(3)  ){
+        t.push('Pets Allowed')
+      }
+      if(checked.includes(4)  ){
+        t.push('Mini Bar')
+      }
+      if(checked.includes(5)  ){
+        t.push('Bathroom')
+      }
+      if(checked.includes(6)  ){
+        t.push('Air Conditioning')
+      }
+      e.preventDefault();
+      setAmenities(t)
+       
   for (var i = 0; i < imgList.length; i++) {
     // files.values contains all the files objects
     const file = imgList[i];
@@ -101,14 +144,11 @@ export default function Properties() {
     // promises.push(uploadBytes(storageRef, file, metadata).then(uploadResult => {return getDownloadURL(uploadResult.ref)}))
     
   }
-      console.log(amenities)
-
-    console.log(imgUrlList)
-    var resultInSeconds=floor(new Date().getTime() / 1000);
+      
     const data={
-      "id": Number  (resultInSeconds),
+      
       "address":address.toString(),
-      "amenities":amenities,
+      "amenities":t,
       "currency":currrency.toString(),
       "longDes":long.toString(),
       "price":Number(price),
@@ -117,16 +157,14 @@ export default function Properties() {
       "img":image.toString(), 
       "imgList":imgUrlList
     }
-      const db = getFirestore(app);
-    const docRef = doc(db,'room',roomId );
-    await setDoc(docRef,data);
+     
+    await setDoc(docRef,data,{merge:true});
     if(docRef.id){
         alert("Added room Successfully!!");
         router.push("/Property")
       }
       
-     
-    console.log(docRef);
+  
     }
 
     const handleToggle = value => {
@@ -134,6 +172,7 @@ export default function Properties() {
       const newChecked = [...checked];
   
       if (currentIndex === -1) {
+        
         newChecked.push(value);
 
       } else {
@@ -167,11 +206,9 @@ export default function Properties() {
          
           const imageref = ref(storage, `images/${imgList[i].name + v4()}`);
           uploadBytes(imageref, imgList[i]).then((snapshot) => {
-            console.log("isdivb")
-            
-            console.log(isUploaded)
+     
             getDownloadURL(snapshot.ref).then((url) => {
-              console.log(url)
+         
               
               urlList.push(url.toString())
             });
@@ -191,7 +228,7 @@ export default function Properties() {
    
     return (
       <>
-      <div className="bg-blueGray-400 justify-center flex h-full">
+      <div className="bg-blueGray-100 justify-center flex h-full">
       
       <div className="w-1/2 mt-[5rem] mb-[5rem] ">
       <br></br>
@@ -362,6 +399,8 @@ export default function Properties() {
                           <input
                             id="tv"
                             name="Amenities"
+                            checked={checked.includes(0)}
+
                             value="tv"
                             type="checkbox"
                             tabIndex={-1}
@@ -381,6 +420,8 @@ export default function Properties() {
                             id="wifi"
                             name="Amenities"
                             value="wifi"
+                            checked={checked.includes(1)}
+
                             type="checkbox"
                             tabIndex={0}
                             onClick={() => handleToggle(1)} 
@@ -393,24 +434,7 @@ export default function Properties() {
                           </label>
                             </div>
                       </div>
-                      <div className="flex items-start">
-                        <div className="flex h-5 items-center">
-                          <input
-                            id="hot-water"
-                            name="Amenities"
-                            value="hot water"
-                            type="checkbox"
-                            tabIndex={1}
-                            onClick={() => handleToggle(2)} 
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          />
-                        </div>
-                        <div className="ml-3   mr-3 text-sm">
-                          <label htmlFor="hot-water" className="font-medium text-gray-700">
-                            Hot Water
-                          </label>
-                            </div>
-                      </div>
+                     
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
@@ -418,6 +442,8 @@ export default function Properties() {
                             name="Amenities"
                             value="pet allwoed"
                             type="checkbox"
+                          checked={checked.includes(3)}
+
                             tabIndex={2}
                             onClick={() => handleToggle(3)} 
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
@@ -425,10 +451,70 @@ export default function Properties() {
                         </div>
                         <div className="ml-3  mr-3 text-sm">
                           <label htmlFor="pet-allowed" className="font-medium text-gray-700">
-                            Pet allowed
+                            Pets allowed
                           </label>
                             </div>
                       </div>
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <input
+                            id="mini-bar"
+                            name="Amenities"
+                            value="Mini Bar"
+                            type="checkbox"
+                            tabIndex={3}
+                            checked={checked.includes(4)}
+                            onClick={() => handleToggle(4)} 
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                        </div>
+                        <div className="ml-3  mr-3 text-sm">
+                          <label htmlFor="mini-bar" className="font-medium text-gray-700">
+                           Mini Bar
+                          </label>
+                            </div>
+                      </div>
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <input
+                            id="bathroom"
+                            name="Amenities"
+                            value="bathroom"
+
+                            checked={checked.includes(5)}
+                            type="checkbox"
+                            tabIndex={4}
+                            onClick={() => handleToggle(5)} 
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                        </div>
+                        <div className="ml-3  mr-3 text-sm">
+                          <label htmlFor="bathroom" className="font-medium text-gray-700">
+                           Bathroom
+                          </label>
+                            </div>
+                      </div>
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <input
+                            id="AC"
+                            name="Amenities"
+                            value="AC"
+                            type="checkbox"
+                            checked={checked.includes(6)}
+                            tabIndex={5}
+                            onClick={() => handleToggle(6)} 
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                        </div>
+                        <div className="ml-3  mr-3 text-sm">
+                          <label htmlFor="AC" className="font-medium text-gray-700">
+                           Air Conditioning
+                          </label>
+                            </div>
+                      </div>
+                     
+                    
                      
                     </div>
                   </fieldset>
@@ -449,7 +535,7 @@ export default function Properties() {
                       className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         onClick={handleSubmit}
                    >
-                      Add
+                      Update
                     </button>
                   </div>
              

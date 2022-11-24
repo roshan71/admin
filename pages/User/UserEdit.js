@@ -106,7 +106,8 @@ export default function UserEdit(props) {
     }
     return (
       <>
-      <div className="bg-blueGray-400 justify-center flex h-screen">
+ 
+      <div className="bg-blueGray-100 justify-center flex h-screen">
       
       <div className="w-1/2 mt-[5rem] ">
       <br></br>

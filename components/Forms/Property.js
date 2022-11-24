@@ -14,14 +14,14 @@ export default function Properties() {
     const router=useRouter();
     const [address, setAddress] = useState();
     const [currrency, setCurrency] = useState();
-    const [image,setImage] =useState();
+    const [image,setImage] =useState(null);
     const [price,setPrice] =useState(0);
     const [short,setShortDesc] =useState();
     const [long,setLongDesc] =useState();
     const [imgList,setImgList] = useState([]);
     const [imgUrlList,setImgUrlList] = useState([]);
     const [amenities, setAmenities] = useState([]);
-    const [checked, setChecked] = React.useState([0, 1,2,3,]);
+    const [checked, setChecked] = React.useState([0, 1,2,3,4,5,6]);
     
     const [isUploaded,setUploaeded]=useState();
     const [isUploaded1,setUploaeded1]=useState();
@@ -42,19 +42,29 @@ export default function Properties() {
       }
     }
     const handleSubmit=async(e)=>{
+      
+      e.preventDefault()
+      if(image!=="" && imgUrlList.length!==0){
      
       console.log('0000000000000000000'+checked.includes(0));
       if(!checked.includes(0)){
-        amenities.push('Tv');
+        amenities.push('TV');
       }
       if(!checked.includes(1)){
         amenities.push('WiFi');
       }
-      if(!checked.includes(2)){
-        amenities.push('Hot Water');
-      }
+    
       if(!checked.includes(3)){
-        amenities.push('Pet Allowed');
+        amenities.push('Pets Allowed');
+      }
+      if(!checked.includes(4)){
+        amenities.push('Mini Bar');
+      }
+      if(!checked.includes(5)){
+        amenities.push('Bathroom');
+      }
+      if(!checked.includes(6)){
+        amenities.push('Air Conditioning');
       }
       e.preventDefault(
       );
@@ -96,7 +106,11 @@ export default function Properties() {
     }
       
      
-    console.log(docRef);
+    console.log(docRef);}
+    else{
+     
+      alert("Please Upload Images!!")
+    }
     }
 
     const handleToggle = value => {
@@ -130,7 +144,7 @@ export default function Properties() {
     }
     const uploadMultiple=async(e)=>{
       e.preventDefault();
-      const storage = getStorage();
+      if(imgList.length!==0){const storage = getStorage();
       const urlList=[];
       for(var i =0;i<imgList.length;i++){
         if (image !== null) {
@@ -150,7 +164,7 @@ export default function Properties() {
       }
       setImgUrlList(urlList)
      
-        setUploaeded1(true)
+        setUploaeded1(true)}
       
     }
     const handleCancel=(e)=>{
@@ -161,7 +175,7 @@ export default function Properties() {
    
     return (
       <>
-      <div className="bg-blueGray-400 justify-center flex h-full">
+      <div className="bg-blueGray-100 justify-center flex h-full">
       
       <div className="w-1/2 mt-[5rem] mb-[5rem] ">
       <br></br>
@@ -169,7 +183,7 @@ export default function Properties() {
         
           {/* address currrency img(upload) long desc shot desc name price */}
             <div className=" bg-white rounded  ">
-              <form action="#" method="POST">
+              <form action="#" method="POST" onSubmit={handleSubmit}>
                 <div className="  justify-center flex">
                     <h3 className="text-lg font-medium leading-6 text-gray-900">Add Properties</h3>
                  </div>
@@ -183,6 +197,8 @@ export default function Properties() {
                           type="text"
                           name="property-name"
                           id="first-name"
+                          required
+
                           onChange={e=>setName(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
@@ -195,6 +211,7 @@ export default function Properties() {
                         <input
                           type="text"
                           name="street-address"
+                          required
                           id="street-address"
                           onChange={e=>setAddress(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -209,6 +226,7 @@ export default function Properties() {
                           type="text"
                           name="currency"
                           id="currency"
+                          required
                           onChange={e=>setCurrency(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
@@ -221,6 +239,7 @@ export default function Properties() {
                           type="number"
                           name="price"
                           id="price"
+                          required
                           onChange={e=>setPrice(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
@@ -236,7 +255,7 @@ export default function Properties() {
                         <input
                         accept="image/png, image/gif, image/jpeg" 
                           type="file"
-                         
+                         required
                           
                           onChange={handleProfile}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -265,7 +284,7 @@ export default function Properties() {
                         <input
                         accept="image/png, image/gif, image/jpeg" 
                           type="file"
-                         
+                         required
                           multiple
                           onChange={handleImgList}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -295,6 +314,7 @@ export default function Properties() {
                           type="text"
                           name="short-description"
                           id="short-desc"
+                          required
                           onChange={e=>setShortDesc(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
@@ -308,12 +328,13 @@ export default function Properties() {
                           name="long-desc"
                           id="long-desc"
                           rows="4"
+                          required
                           onChange={e=>setLongDesc(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
                       <br></br>
-                      {/* tv wifi hotwater pet allowed */}
+                      {/* TV WiFi hotwater Pets Allowed */}
                       <fieldset>
                     <legend className="sr-only">Amenities</legend>
                     <div className="text-base font-medium text-gray-900" aria-hidden="true">
@@ -324,9 +345,9 @@ export default function Properties() {
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
-                            id="tv"
+                            id="TV"
                             name="Amenities"
-                            value="tv"
+                            value="TV"
                             type="checkbox"
                             tabIndex={-1}
                             onClick={() => handleToggle(0)} 
@@ -334,7 +355,7 @@ export default function Properties() {
                           />
                         </div>
                         <div className="ml-3 mr-3 text-sm">
-                          <label htmlFor="tv" className="font-medium text-gray-700">
+                          <label htmlFor="TV" className="font-medium text-gray-700">
                             TV
                           </label>
                             </div>
@@ -342,9 +363,9 @@ export default function Properties() {
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
-                            id="wifi"
+                            id="WiFi"
                             name="Amenities"
-                            value="wifi"
+                            value="WiFi"
                             type="checkbox"
                             tabIndex={0}
                             onClick={() => handleToggle(1)} 
@@ -352,29 +373,12 @@ export default function Properties() {
                           />
                         </div>
                         <div className="ml-3  mr-3 text-sm">
-                          <label htmlFor="wifi" className="font-medium text-gray-700">
+                          <label htmlFor="WiFi" className="font-medium text-gray-700">
                             WiFi
                           </label>
                             </div>
                       </div>
-                      <div className="flex items-start">
-                        <div className="flex h-5 items-center">
-                          <input
-                            id="hot-water"
-                            name="Amenities"
-                            value="hot water"
-                            type="checkbox"
-                            tabIndex={1}
-                            onClick={() => handleToggle(2)} 
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          />
-                        </div>
-                        <div className="ml-3   mr-3 text-sm">
-                          <label htmlFor="hot-water" className="font-medium text-gray-700">
-                            Hot Water
-                          </label>
-                            </div>
-                      </div>
+                      
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
@@ -389,7 +393,61 @@ export default function Properties() {
                         </div>
                         <div className="ml-3  mr-3 text-sm">
                           <label htmlFor="pet-allowed" className="font-medium text-gray-700">
-                            Pet allowed
+                            Pets Allowed
+                          </label>
+                            </div>
+                      </div>
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <input
+                            id="mini-bar"
+                            name="Amenities"
+                            value="Mini Bar"
+                            type="checkbox"
+                            tabIndex={3}
+                            onClick={() => handleToggle(4)} 
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                        </div>
+                        <div className="ml-3  mr-3 text-sm">
+                          <label htmlFor="mini-bar" className="font-medium text-gray-700">
+                           Mini Bar
+                          </label>
+                            </div>
+                      </div>
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <input
+                            id="bathroom"
+                            name="Amenities"
+                            value="bathroom"
+                            type="checkbox"
+                            tabIndex={4}
+                            onClick={() => handleToggle(5)} 
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                        </div>
+                        <div className="ml-3  mr-3 text-sm">
+                          <label htmlFor="bathroom" className="font-medium text-gray-700">
+                           Bathroom
+                          </label>
+                            </div>
+                      </div>
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <input
+                            id="AC"
+                            name="Amenities"
+                            value="AC"
+                            type="checkbox"
+                            tabIndex={5}
+                            onClick={() => handleToggle(6)} 
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                        </div>
+                        <div className="ml-3  mr-3 text-sm">
+                          <label htmlFor="AC" className="font-medium text-gray-700">
+                           Air Conditioning
                           </label>
                             </div>
                       </div>
@@ -411,7 +469,7 @@ export default function Properties() {
                     <button
                       type="submit"
                       className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                        onClick={handleSubmit}
+                        // onClick={handleSubmit}
                    >
                       Add
                     </button>

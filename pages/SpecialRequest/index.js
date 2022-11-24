@@ -16,7 +16,7 @@ const Property=(e)=>{
  
     return(<>
      <Sidebar/>
-     <div className=" md:ml-64  " style={{backgroundColor: "rgb(220 252 231)" ,padding:"10px",minHeight:"100vh"}}>
+     <div className=" md:ml-64  bg-blueGray-100" style={{padding:"10px",minHeight:"100vh"}}>
    <div  >
    
     <div>

@@ -9,7 +9,7 @@ export default function Sidebar() {
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl  flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"style={{backgroundColor:'#163e6f'}}>
-        <div className="md:flex-col  md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
+        <div className="md:flex-col   md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
           {/* Toggler */} 
           <button
             className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
@@ -25,19 +25,16 @@ export default function Sidebar() {
           {/* Collapse */}
           <div
             className={
-              "md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded " +
+              "md:flex md:flex-col  md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded " +
               collapseShow
             }
+            style={{backgroundColor:'#163e6f'}}
           >
             {/* Collapse header */}
             <div className="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-700">
               <div className="flex flex-wrap">
                 <div className="w-6/12">
-                  <Link href="/">
                   
-                      Admin Panel
-                  
-                  </Link>
                 </div>
                 <div className="w-6/12 flex justify-end">
                   <button
@@ -56,7 +53,7 @@ export default function Sidebar() {
            
             {/* Heading */}
             <h6 className="md:min-w-full text-white text-l uppercase font-bold block pt-1 pb-4 no-underline">
-              Admin Layout Pages
+              HomeGateaway Admin 
             </h6>
             {/* Navigation */}
 
@@ -66,7 +63,7 @@ export default function Sidebar() {
                   <div
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                     "text-lightBlue-500 hover:text-lightBlue-600"
+                     "text-white hover:text-lightBlue-600"
                        
                     }
                   >
@@ -86,7 +83,7 @@ export default function Sidebar() {
                 <div
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                     "text-lightBlue-500 hover:text-lightBlue-600"
+                     "text-white hover:text-lightBlue-600"
                        
                     }
                   >
@@ -107,7 +104,7 @@ export default function Sidebar() {
                 <div
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                     "text-lightBlue-500 hover:text-lightBlue-600"
+                     "text-white hover:text-lightBlue-600"
                        
                     }
                   >
@@ -129,14 +126,14 @@ export default function Sidebar() {
                 <div
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                     "text-lightBlue-500 hover:text-lightBlue-600"
+                     "text-white hover:text-lightBlue-600"
                        
                     }
                   >
                     <i
                       className={
                         "fas fa-solid fa-cubes mr-2 text-sm " +
-                        (router.pathname.indexOf("Property") !== -1
+                        (router.pathname.indexOf("/Property") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
@@ -150,7 +147,7 @@ export default function Sidebar() {
                 <div
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                     "text-lightBlue-500 hover:text-lightBlue-600"
+                     "text-white hover:text-lightBlue-600"
                        
                     }
                   >

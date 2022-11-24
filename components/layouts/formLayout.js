@@ -27,7 +27,7 @@ function FormLayout({children}){
   }
   return (
     <>
-    <div className=" md:ml-64  " style={{backgroundColor: "rgb(220 252 231)" ,minHeight:"100vh"}}>
+        <div className=" md:ml-64  bg-blueGray-100" style={{minHeight:"100vh"}}>
       <SideBar />
       <Link href="/User/addUser">
                 <div

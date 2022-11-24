@@ -1,11 +1,13 @@
 import { async } from '@firebase/util';
 import { requestToBodyStream } from 'next/dist/server/body-streams';
 import React, { useEffect, useState } from 'react';
-import { collection, addDoc,getFirestore } from "firebase/firestore"; 
+import { collection, addDoc,getFirestore,query,where,getDocs } from "firebase/firestore"; 
 import { getStorage } from "firebase/storage";
 import { app } from "../../utils/firebase";
 import { useRouter } from 'next/router';
 import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 import {
   ref,
   uploadBytes,
@@ -16,6 +18,7 @@ import { v4 } from "uuid";
 export default function Form() {
   const router=useRouter();
   const [name1, setName] = useState();
+  const [password, setPass] = useState();
   const [email1, setEmail] = useState();
   const [address1, setAddress] = useState();
   const [profile1, setProfile] = useState();
@@ -47,7 +50,7 @@ export default function Form() {
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-     console.log(name1,email1,address1,imageUpload);
+    //  console.log(name1,email1,address1,imageUpload);
 
 
 
@@ -59,7 +62,7 @@ export default function Form() {
       "name": name1.toString(),
       "location": address1.toString(),
       "email": email1.toString(),
-      "profile": imageUpload.toString()
+      "profile": imageUpload!=null?imageUpload.toString():""
 
     }
     //     console.log(data)
@@ -70,25 +73,44 @@ export default function Form() {
     // const userList = usersSnapshot.docs.map(doc => doc.data());
     //   console.log(userList);
     const db = getFirestore(app);
-    const docRef = await addDoc(collection(db, "users"), data);
-    if(docRef.id){
+    const already = query(collection(db, 'users'), where('email', '==', email1))
+    const querySnapshot = await getDocs(already)
+    console.log(querySnapshot.docs.length)
+    if (querySnapshot.docs.length===0){
+      const docRef = await addDoc(collection(db, "users"), data);
+      if(docRef.id){
       alert("Added User Successfully!!");
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, email1, password)
+      .then((userCredential) => {
+      // Signed in 
+      console.log("***** SuccessFull")
       router.push("/User")
+      })
+      .catch((error) => {
+      const errorCode = error.code;
+      alert("Something Wents Wrong!");
+      const errorMessage = error.message;
+    // ..
+     });
     }
-      
-     
-    console.log(docRef);
+    }
+else{
+  alert("Already Exists Email!!!");
+}
+}
+  
     //  await pushUser.doc("ivhidhfvihbhvidf").set(data)
     // console.log(docRef);
 
-  }
+  
   const handleCancel=(e)=>{
     e.preventDefault();
     router.push("/User");
   }
   return (
     <>
-      <div className="bg-blueGray-400 justify-center flex h-screen">
+      <div className="bg-blueGray-100 justify-center flex h-screen">
 
         <div className="w-1/2 mt-[5rem] ">
           <br></br>
@@ -96,7 +118,7 @@ export default function Form() {
 
 
           <div className=" bg-white rounded  ">
-            <form action="#" method="POST">
+            <form action="#" method="POST" onSubmit={handleSubmit}>
               <div className="  justify-center flex">
                 <h3 className="text-lg font-medium leading-6 text-gray-900">Add User</h3>
               </div>
@@ -143,6 +165,19 @@ export default function Form() {
                       name="street-address"
                       id="street-address"
                       onChange={e => setAddress(e.target.value)}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                  <div className="col-span-6">
+                    <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
+                      Password
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      name="pwd"
+                      id="pwd"
+                      onChange={e => setPass(e.target.value)}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -193,7 +228,7 @@ export default function Form() {
                   
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  onClick={handleSubmit}
+                  // onClick={handleSubmit}
                 >
                   Add
                 </button>

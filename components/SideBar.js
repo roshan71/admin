@@ -8,7 +8,10 @@ export default function Sidebar() {
   const router = useRouter();
   return (
     <>
-      <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl  flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"style={{backgroundColor:'#163e6f'}}>
+      <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl  flex flex-wrap items-center justify-between relative md:w-64 z-10 "style={{backgroundColor:'#163e6f'}}>
+       
+    
+   
         <div className="md:flex-col   md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
           {/* Toggler */} 
           <button
@@ -25,7 +28,7 @@ export default function Sidebar() {
           {/* Collapse */}
           <div
             className={
-              "md:flex md:flex-col  md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded " +
+              "md:flex md:flex-col  md:items-stretch md:opacity-100 md:relative  md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1  " +
               collapseShow
             }
             style={{backgroundColor:'#163e6f'}}
@@ -47,16 +50,20 @@ export default function Sidebar() {
                 </div>
               </div>
             </div>
+            
+            
             {/* Form */}
           
             {/* Divider */}
            
             {/* Heading */}
-            <h6 className="md:min-w-full text-white text-l uppercase font-bold block pt-1 pb-4 no-underline">
-              HomeGateaway Admin 
-            </h6>
+            <div className="bg-white   ">
+              <div className="px-3 py-8">
+            <img src="/logo.png"></img>
+            </div>
+            </div>
             {/* Navigation */}
-
+            <div className="px-4 py-6">
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
                 <Link href="../">
@@ -166,7 +173,8 @@ export default function Sidebar() {
             </ul>
 
                      </div>
-        </div>
+
+</div>        </div>
       </nav>
     </>
   );

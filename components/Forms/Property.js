@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {floor} from "mathjs";
-import { collection, addDoc,getFirestore } from "firebase/firestore"; 
+import { collection, addDoc,getFirestore, doc, getDoc } from "firebase/firestore"; 
 import { getStorage, ref,
   uploadBytes,
   getDownloadURL,} from "firebase/storage";
 import { app } from "../../utils/firebase";
 import { v4 } from 'uuid';
 import { useRouter } from 'next/router';
-
+import { getUsers } from '../../utils/user';
 import { async } from '@firebase/util';
 export default function Property() {
     const [name, setName] = useState();
@@ -18,6 +18,7 @@ export default function Property() {
     const [price,setPrice] =useState(0);
     const [short,setShortDesc] =useState();
     const [long,setLongDesc] =useState();
+    const [landlord,setLandlord] =useState();
     const [imgList,setImgList] = useState([]);
     const [imgUrlList,setImgUrlList] = useState([]);
     const [amenities, setAmenities] = useState([]);
@@ -25,6 +26,18 @@ export default function Property() {
     
     const [isUploaded,setUploaeded]=useState();
     const [isUploaded1,setUploaeded1]=useState();
+    
+    const [userList, setUserList] = useState([]);
+  useEffect(() => {
+    setUser();
+
+  }, []);
+  const setUser = async () => {
+    var list = await getUsers();
+    setUserList(list);
+  
+  };
+
     const upload = async (e) => {
       e.preventDefault()
       if (image !== null) {
@@ -83,7 +96,10 @@ export default function Property() {
     
   }
 
-
+  const db = getFirestore(app);
+  const doc1=doc(db,"users",landlord)
+  const user=await getDoc(doc1)
+ 
 
     var resultInSeconds=floor(new Date().getTime() / 1000);
     const data={
@@ -96,9 +112,10 @@ export default function Property() {
       "name":name.toString(),
       "shortDes":short.toString(),
       "img":image.toString(), 
-      "imgList":imgUrlList
+      "imgList":imgUrlList,
+      "landlord":user.ref
     }
-      const db = getFirestore(app);
+      
     const docRef = await addDoc(collection(db, "room"), data);
     if(docRef.id){
       alert("Added room Successfully!!");
@@ -171,7 +188,10 @@ export default function Property() {
       e.preventDefault();
       router.push("/Property");
     }
-
+    const handleUser=(e)=>{
+      console.log(e.target.value)
+      setLandlord(e.target.value)
+    }
    
     return (
       <>
@@ -243,6 +263,19 @@ export default function Property() {
                           onChange={e=>setPrice(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="car" className="block text-sm font-medium text-gray-700">
+                           Select LandLord
+                        </label>
+                       
+                        <select name="landlord" id="landlord" onChange={(e)=>handleUser(e)}>
+                          {userList.map((e)=>(
+                           <option value={e[0]['id']}>{e[1]['email']}</option>
+                          ))}
+               
+                        </select>
+                        
                       </div>
                      
   

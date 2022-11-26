@@ -7,7 +7,7 @@ import { getStorage, ref,
 import { app } from "../../utils/firebase";
 import { v4 } from 'uuid';
 import { useRouter } from 'next/router';
-
+import { getUsers } from '../../utils/user';
 import { async } from '@firebase/util';
 export default function EditProperty () {
     const [name, setName] = useState();
@@ -26,14 +26,30 @@ export default function EditProperty () {
     const [isChecked,setIsChecked]=useState([]);
     const [isUploaded,setUploaeded]=useState();
     const [isUploaded1,setUploaeded1]=useState();
-   
-    const roomId=router.query['id'];
+    const [userList, setUserList] = useState([]);
+    const [landlord,setLandlord] =useState();
+    const [selected,setSelected]=useState()
+    const temp=router.query["a1"];
+    const roomId=temp[0];
+    const roomUser=temp[1];
 
-   
     useEffect(() => {
         getProperty();
-        
+        setUser();
+
       }, []);
+      const setUser = async () => {
+        var list = await getUsers();
+        setUserList(list);
+   
+        for(var i=0;i<list.length;i++){
+          if(list[i][0]['id']===roomUser){
+            setSelected(list[i][1]['email'])
+          
+            break
+          }
+        }
+      };
     const getProperty=async()=>{
         
          
@@ -146,7 +162,9 @@ export default function EditProperty () {
     // promises.push(uploadBytes(storageRef, file, metadata).then(uploadResult => {return getDownloadURL(uploadResult.ref)}))
     
   }
-      
+  const db = getFirestore(app);
+  const doc1=doc(db,"users",landlord)
+  const user=await getDoc(doc1)
     const data={
       
       "address":address.toString(),
@@ -157,9 +175,10 @@ export default function EditProperty () {
       "name":name.toString(),
       "shortDes":short.toString(),
       "img":image.toString(), 
-      "imgList":imgUrlList
+      "imgList":imgUrlList,
+      "landlord":user.ref
     }
-    const db = getFirestore(app);
+
     const docRef=doc(db,'room',roomId)
     await setDoc(docRef,data,{merge:true});
     if(docRef.id){
@@ -228,6 +247,11 @@ export default function EditProperty () {
         e.preventDefault();
         router.push("/Property");
       }
+
+      const handleUser=(e)=>{
+       
+        setLandlord(e.target.value)
+      }
    
     return (
       <>
@@ -241,7 +265,7 @@ export default function EditProperty () {
             <div className=" bg-white rounded  ">
               <form action="#" method="POST">
                 <div className="  justify-center flex">
-                    <h3 className="text-lg font-medium leading-6 text-gray-900">Add Properties</h3>
+                    <h3 className="text-lg font-medium leading-6 text-gray-900">Edit Properties</h3>
                  </div>
                   <div className="bg-white px-4 py-5 sm:p-6">
                     <div className="grid grid-cols-6 gap-6">
@@ -300,7 +324,19 @@ export default function EditProperty () {
                         />
                       </div>
                      
-  
+                      <div className="col-span-6">
+                        <label htmlFor="car" className="block text-sm font-medium text-gray-700">
+                           Select LandLord
+                        </label>
+                       
+                        <select name="landlord" id="landlord"  onChange={(e)=>handleUser(e)}>
+                          {userList.map((e)=>(
+                           <option value={e[0]['id']} selected={roomUser===e[0]['id']}>{e[1]['email']}</option>
+                          ))}
+               
+                        </select>
+                        
+                      </div>
                     
                       <div className="col-span-7">
                         <label htmlFor="profile" className="block text-sm font-medium text-gray-700">
@@ -391,11 +427,11 @@ export default function EditProperty () {
                       <br></br>
                       {/* tv wifi hotwater pet allowed */}
                       <fieldset>
-                    <legend className="sr-only">Amenities</legend>
+                    <legend className="sr-only ">Amenities</legend>
                     <div className="text-base font-medium text-gray-900" aria-hidden="true">
                     Amenities
                     </div>
-                    <div className="space-y-4 flex">
+                    <div className="space-y-3 flex flex-row flex-wrap">
                    
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
@@ -417,7 +453,7 @@ export default function EditProperty () {
                           </label>
                             </div>
                       </div>
-                      <div className="flex items-start">
+                      <div className="flex ">
                         <div className="flex h-5 items-center">
                           <input
                             id="wifi"
@@ -438,7 +474,7 @@ export default function EditProperty () {
                             </div>
                       </div>
                      
-                      <div className="flex items-start">
+                      <div className="flex">
                         <div className="flex h-5 items-center">
                           <input
                             id="pet-allowed"
@@ -458,7 +494,7 @@ export default function EditProperty () {
                           </label>
                             </div>
                       </div>
-                      <div className="flex items-start">
+                      <div className="flex ">
                         <div className="flex h-5 items-center">
                           <input
                             id="mini-bar"
@@ -477,7 +513,7 @@ export default function EditProperty () {
                           </label>
                             </div>
                       </div>
-                      <div className="flex items-start">
+                      <div className="flex ">
                         <div className="flex h-5 items-center">
                           <input
                             id="bathroom"
@@ -497,7 +533,7 @@ export default function EditProperty () {
                           </label>
                             </div>
                       </div>
-                      <div className="flex items-start">
+                      <div className="flex ">
                         <div className="flex h-5 items-center">
                           <input
                             id="AC"

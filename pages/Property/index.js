@@ -3,6 +3,9 @@ import PropertyCard from "../../components/Cards/PropertyCard"
 import Sidebar from "../../components/SideBar"
 import { useState,useEffect } from "react"
 import { getRoom } from "../../utils/property"
+import { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
 const Property=(e)=>{
   
     const [roomList, setRoomList] = useState([]);
@@ -12,8 +15,10 @@ const Property=(e)=>{
     const setRoom = async () => {
       var list = await getRoom();
       setRoomList(list);
-    
+
     };
+   
+    
 
     
     return(<>
@@ -25,11 +30,12 @@ const Property=(e)=>{
                     Add Property
                  </div>
                 </Link>
+          
     <div  >
     
      <div>
      {roomList.map((e) => ( 
-            <PropertyCard  key={e[0]['id']} id={e[0]['id']} name={e[1]['name']} addr={e[1]['address']} price={e[1]['price']} currency={e[1]['currency']} desc={e[1]['shortDes']} imgsrc={e[1]['img']}/>
+            <PropertyCard user={e[1]['landlord']} key={e[0]['id']} id={e[0]['id']} name={e[1]['name']} addr={e[1]['address']} price={e[1]['price']} currency={e[1]['currency']} desc={e[1]['shortDes']} imgsrc={e[1]['img']}/>
           ))}
       
      </div>

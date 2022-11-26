@@ -19,15 +19,19 @@ const PropertyCard =(props)=>{
       router.reload(window.location.pathname);
      
     })}
-
-    const handleEdit=(e,id)=>{
+    
+    const handleEdit=(e,id,u)=>{
       e.preventDefault();
+      console.log(u)
+      const a1=[id,u.id]
+      console.log(a1)
       router.push(
          {
             pathname:"/Property/EditProperty",
             query:{
-               id
+               a1,
             }
+            
          }
       )
     }
@@ -45,7 +49,7 @@ const PropertyCard =(props)=>{
             <button
                       type="button"
                       className="inline-flex justify-center rounded-md mr-2 border border-transparent bg-blue-700 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                       onClick={(e)=>handleEdit(e,props.id)}
+                       onClick={(e)=>handleEdit(e,props.id,props.user)}
                    >
                       Edit
                     </button>

@@ -29,7 +29,7 @@ export default function EditProperty () {
     const [userList, setUserList] = useState([]);
     const [landlord,setLandlord] =useState();
     const [selected,setSelected]=useState()
-    const temp=router.query["a1"];
+    const temp=router.query["a1"]??[];
     const roomId=temp[0];
     const roomUser=temp[1];
 

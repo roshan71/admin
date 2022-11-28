@@ -54,15 +54,17 @@ const BookingCard=(props)=>{
             <div className={isPending ?  "visible" : "invisible"}>
             <button
                       type="button"
-                      className="inline-flex justify-center rounded-md mr-2 border border-transparent bg-blue-700 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="inline-flex text-white justify-center rounded-md mr-2 border border-transparent bg-blue-700 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                        onClick={(e)=>handleConfirm(e)}
+                       style={{backgroundColor:"lightgreen"}}
                    >
                       Confirm
                     </button>
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md ml-2 border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="inline-flex text-white justify-center rounded-md ml-2 border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                        onClick={(e)=>handleReject(e)}
+                       style={{backgroundColor:"#e73d2f"}}
                    >
                       Reject
                     </button>

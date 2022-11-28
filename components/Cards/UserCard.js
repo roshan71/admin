@@ -6,6 +6,7 @@ import { useContext, useEffect } from "react";
 import Link from "next/link";
 import { async } from "@firebase/util";
 import FormLayout from "../layouts/formLayout";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 const UserCard =(props)=>{
     const router = useRouter();
     //  const  showAlert  = useContext(FormLayout);
@@ -38,6 +39,34 @@ const UserCard =(props)=>{
          }
       )
     }
+    const handlePass=(e,id)=>{
+      e.preventDefault();
+      const auth = getAuth();
+      sendPasswordResetEmail(auth, props.email)
+        .then(() => {
+          // Password reset email sent!
+          // ..
+          alert("Chech Email "+props.email+" For Reset Password Link ")
+       
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+        });
+      
+    
+      // const a1=[id,props.name]
+    
+      // router.push(
+      //    {
+      //       pathname:"/User/updatePassword",
+      //       query:{
+      //          a1
+      //       }
+      //    }
+      // )
+    }
      return(
     <>
    
@@ -47,11 +76,22 @@ const UserCard =(props)=>{
             <h2>{props.name}</h2>
             <h3>{props.email}</h3>
         </div>
-        <div className="">
-       
+        <div className="flex flex-col">
+       <div>
         <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      style={{backgroundColor:"lightgreen"}}
+                      className="inline-flex justify-center rounded-md mr-3 mb-3 text-white border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                       onClick={(e)=>handlePass(e,props.id)}
+                   >
+                      Update Password
+                    </button>
+                    </div>
+                    <div className="">
+        <button
+                      type="button"
+                      style={{backgroundColor:"lightgreen"}}
+                      className="inline-flex justify-center rounded-md mr-3 mb-3 text-white border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                        onClick={(e)=>handleEdit(e,props.id)}
                    >
                       Edit
@@ -59,15 +99,17 @@ const UserCard =(props)=>{
 
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      style={{backgroundColor:"#e73d2f"}}
+                      className="inline-flex justify-center rounded-md text-white border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                        onClick={(e)=>handleDelete(e,props.id)}
                    >
                       Delete
                     </button>
             
         </div>
+        </div>
     </div>
-    <br></br>
+  
     </>
  )   
 }

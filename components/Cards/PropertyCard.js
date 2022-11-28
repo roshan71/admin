@@ -48,20 +48,22 @@ const PropertyCard =(props)=>{
             <h3><b>Description :</b> {props.desc}</h3><br></br>
             <button
                       type="button"
-                      className="inline-flex justify-center rounded-md mr-2 border border-transparent bg-blue-700 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="inline-flex text-white justify-center rounded-md mr-2 border border-transparent bg-blue-700 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                        onClick={(e)=>handleEdit(e,props.id,props.user)}
+                       style={{backgroundColor:"lightgreen"}}
                    >
                       Edit
                     </button>
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md ml-2 border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="inline-flex text-white justify-center rounded-md ml-2 border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                        onClick={(e)=>{handleDelete(e,props.id)}}
+                       style={{backgroundColor:"#e73d2f"}}
                    >
                       Delete
                     </button>
             </div>
-            <div className="ml-3">
+            <div className="ml-3 max-w-[350px] max-h-[200px] overflow-hidden">
             <img
       src={props.imgsrc}
       alt="Picture of the author"

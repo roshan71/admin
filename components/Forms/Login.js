@@ -8,8 +8,8 @@ import { collection, getDoc,setDoc,getFirestore,doc } from "firebase/firestore";
 
 
 const Login=()=>{
-  const [email,setEmail]=useState();
-  const [password,setPassword]=useState();
+  const [email,setEmail]=useState(null);
+  const [password,setPassword]=useState(null);
   const router=useRouter()
   const handleSubmit=(e)=>{
 e.preventDefault();

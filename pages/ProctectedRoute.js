@@ -7,8 +7,7 @@ const ProtectedRoute = ({ children }) => {
     const [user,setUser]=useState(false)
     const router=useRouter()
   useEffect(() => {
-    console.log("*********************/////////")
-    console.log(localStorage.getItem('uid'))
+
     if (localStorage.getItem("uid")!==null) {
         setUser(true)
      

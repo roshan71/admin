@@ -10,7 +10,7 @@ export default function Sidebar() {
 
   const handleSignOut=(e)=>{
    e.preventDefault();
-    console.log("sign")
+   
     localStorage.removeItem('uid')
     router.reload(window.location.pathname);
 

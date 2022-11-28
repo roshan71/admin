@@ -9,9 +9,7 @@ const usersCol = collection(db, 'users');
 
 
   const userList = usersSnapshot.docs.map(doc => [{"id":doc.id,"ref":doc.ref},doc.data()]);
-  for(var i in userList){
-    console.log(i[0]['ref'])
-  }
+  
   return userList;
 };
 

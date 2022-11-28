@@ -27,13 +27,13 @@ e.preventDefault();
        if( da["userType"]==="admin"){
          localStorage.setItem('uid', user.uid);
          router.push("/Dashboard")
-          console.log(da["userType"])
+         
        }
        else{
          alert("Invalid User Please Try Again")
           setEmail("")
           setPassword("")
-         console.log(da["userType"])
+        
        }}
        catch{
         alert("Invalid User Please Try Again")

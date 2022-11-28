@@ -22,9 +22,9 @@ const PropertyCard =(props)=>{
     
     const handleEdit=(e,id,u)=>{
       e.preventDefault();
-      console.log(u)
+     
       const a1=[id,u.id]
-      console.log(a1)
+   
       router.push(
          {
             pathname:"/Property/EditProperty",

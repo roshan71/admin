@@ -189,7 +189,7 @@ export default function Property() {
       router.push("/Property");
     }
     const handleUser=(e)=>{
-      console.log(e.target.value)
+     
       setLandlord(e.target.value)
     }
    

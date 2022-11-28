@@ -43,7 +43,7 @@ export default function UserEdit(props) {
         const auth = getAuth();
 
         const u1 =auth.currentUser;
-        console.log(u1)
+   
         // updatePassword(u1, password).then(() => {
         //    console.log("Updates")
         //     // Update successful.

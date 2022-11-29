@@ -7,8 +7,8 @@ import { app } from "../utils/firebase";
 import { collection, getDoc,setDoc,getFirestore,doc } from "firebase/firestore"; 
 
 export default function Home() {
-  const [email,setEmail]=useState(null);
-  const [password,setPassword]=useState(null);
+  const [email,setEmail]=useState();
+  const [password,setPassword]=useState();
   const router=useRouter()
   const handleSubmit=(e)=>{
 e.preventDefault();
@@ -23,6 +23,7 @@ e.preventDefault();
       const docRef=doc(db,'users',user.uid)
         const docSnap = await getDoc(docRef);
         const da=docSnap.data();
+        console.log(da)
        try{
        if( da["userType"]==="admin"){
          localStorage.setItem('uid', user.uid);

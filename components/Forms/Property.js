@@ -4,6 +4,8 @@ import { collection, addDoc,getFirestore, doc, getDoc } from "firebase/firestore
 import { getStorage, ref,
   uploadBytes,
   getDownloadURL,} from "firebase/storage";
+
+import AmenitiesCard from '../Cards/AmenitiesCard';
 import { app } from "../../utils/firebase";
 import { v4 } from 'uuid';
 import { useRouter } from 'next/router';
@@ -18,11 +20,11 @@ export default function Property() {
     const [price,setPrice] =useState(0);
     const [short,setShortDesc] =useState();
     const [long,setLongDesc] =useState();
-    const [landlord,setLandlord] =useState();
+    const [landlord,setLandlord] =useState(null);
     const [imgList,setImgList] = useState([]);
     const [imgUrlList,setImgUrlList] = useState([]);
     const [amenities, setAmenities] = useState([]);
-    const [checked, setChecked] = React.useState([0, 1,2,3,4,5,6]);
+    const [checked, setChecked] = React.useState([0, 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]);
     
     const [isUploaded,setUploaeded]=useState();
     const [isUploaded1,setUploaeded1]=useState();
@@ -58,27 +60,70 @@ export default function Property() {
       
       e.preventDefault()
       if(image!=="" && imgUrlList.length!==0){
+        var tempLandlord=null
+        if(landlord===null){
+          tempLandlord=userList[0][0]['id']
+        }
+        else{
+           tempLandlord=landlord
+        }
      
-  
+       
       if(!checked.includes(0)){
-        amenities.push('TV');
+        amenities.push('24-Hour Check-In');
       }
       if(!checked.includes(1)){
-        amenities.push('WiFi');
+        amenities.push('Flat Screen Tv');
       }
-    
+      if(!checked.includes(2)){
+        amenities.push('Washing Machine');
+      }
       if(!checked.includes(3)){
-        amenities.push('Pets Allowed');
+        amenities.push('All utility bills included');
       }
       if(!checked.includes(4)){
-        amenities.push('Mini Bar');
+        amenities.push('Free Wifi');
       }
       if(!checked.includes(5)){
-        amenities.push('Bathroom');
+        amenities.push('Cleaning Service Available');
       }
       if(!checked.includes(6)){
-        amenities.push('Air Conditioning');
+        amenities.push('Concierge');
       }
+      if(!checked.includes(7)){
+        amenities.push('Fully Equipped Kitchen');
+      }
+      if(!checked.includes(8)){
+        amenities.push('Bedding & Towels');
+      }
+      if(!checked.includes(9)){
+        amenities.push('Dishwasher');
+      }
+      if(!checked.includes(10)){
+        amenities.push('Hair Dryer');
+      }
+      if(!checked.includes(11)){
+        amenities.push('Electric/Gas Stove');
+      }
+      if(!checked.includes(12)){
+        amenities.push('Dryer');
+      }
+      if(!checked.includes(13)){
+        amenities.push('Iron & Ironing Board');
+      }
+      if(!checked.includes(14)){
+        amenities.push('Double Bed');
+      }
+      if(!checked.includes(15)){
+        amenities.push('Elevator in Building');
+      }
+      if(!checked.includes(16)){
+        amenities.push('Laptop Friendly Workspace');
+      }
+      if(!checked.includes(17)){
+        amenities.push('Comfort Cooling');
+      }
+      
       e.preventDefault(
       );
       const promises = [];
@@ -97,7 +142,7 @@ export default function Property() {
   }
 
   const db = getFirestore(app);
-  const doc1=doc(db,"users",landlord)
+  const doc1=doc(db,"users",tempLandlord)
   const user=await getDoc(doc1)
  
 
@@ -193,6 +238,25 @@ export default function Property() {
       setLandlord(e.target.value)
     }
    
+    const amenities_data=[{id:0,name:"24-Hour Check-In"},
+    {id:1 ,name:"Flat Screen Tv"},
+    {id:2 ,name:"Washing Machine"},
+    {id:3 ,name:"All utility bills included"},
+    {id:4 ,name:"Free Wifi"},
+    {id:5 ,name:"Cleaning Service Available"},
+    {id:6 ,name:"Concierge"},
+    {id:7 ,name:"Fully Equipped Kitchen"},
+    {id:8 ,name:"Bedding & Towels"},
+    {id:9 ,name:"Dishwasher"},
+    {id:10 ,name:"Hair Dryer"},
+    {id:11 ,name:"Electric/Gas Stove"},
+    {id:12 ,name:"Dryer"},
+    {id:13 ,name:"Iron & Ironing Board"},
+    {id:14 ,name:"Double Bed"},
+    {id:15 ,name:"Elevator in Building"},
+    {id:16 ,name:"Laptop Friendly Workspace"},
+    {id:17 ,name:"Comfort Cooling"},
+  ];
     return (
       <>
       <div className="bg-blueGray-100 justify-center flex h-full">
@@ -268,14 +332,14 @@ export default function Property() {
                         <label htmlFor="car" className="block text-sm font-medium text-gray-700">
                            Select LandLord
                         </label>
-                       
-                        <select name="landlord" id="landlord" onChange={(e)=>handleUser(e)}>
+                        <select  name="landlord" id="landlord" onChange={(e)=>handleUser(e)}>
+                         
                           {userList.map((e)=>(
-                           <option value={e[0]['id']}>{e[1]['email']}</option>
+                           <option   value={e[0]['id']}>{e[1]['email']}</option>
                           ))}
                
                         </select>
-                        
+
                       </div>
                      
   
@@ -373,9 +437,32 @@ export default function Property() {
                     <div className="text-base font-medium text-gray-900" aria-hidden="true">
                     Amenities
                     </div>
-                    <div className="space-y-4 flex">
+                    <div className="space-y-4 flex flex-wrap">
                    
-                      <div className="flex items-start">
+                   {amenities_data.map((e)=>{
+                   return <div key={e['id']}>
+                     <div  className="flex items-start mb-1">
+                     <div className="flex h-5 items-center">
+                       <input
+                       
+                         id={e['name']}
+                         name="Amenities"
+                         value={e['name']}
+                         type='checkbox'
+                         tabIndex={e['id']}
+                         onClick={() => handleToggle(e['id'])} 
+                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                       />
+                     </div>
+                     <div className="ml-3 mr-3 text-sm">
+                       <label htmlFor={e['name']} className="font-medium text-gray-700">
+                         {e['name']}
+                       </label>
+                         </div>
+                   </div>
+                   </div>
+                   })}
+                      {/* <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
                             id="TV"
@@ -484,7 +571,7 @@ export default function Property() {
                           </label>
                             </div>
                       </div>
-                     
+                      */}
                     </div>
                   </fieldset>
                   </div>

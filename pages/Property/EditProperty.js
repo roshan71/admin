@@ -66,38 +66,82 @@ export default function EditProperty () {
             setLongDesc(d['longDes'])
             setImgUrlList(d['imgList'])
             setImage(d['img'])
-            
+            setLandlord(d['landlord'])
             setChecked([])
+          
            for(var i=0;i<d['amenities'].length;i++){
-            if(d['amenities'][i]==='Tv'){
+            if(d['amenities'][i]==='24-Hour Check-In'){
              checked.push(0)
             }
-            else if(d['amenities'][i]==='WiFi'){
+            else if(d['amenities'][i]==='Flat Screen Tv'){
              
               checked.push(1)
             }
-      
-             else if(d['amenities'][i]==='Pets Allowed'){
-          
+            else if(d['amenities'][i]==='Washing Machine'){
+             
+              checked.push(2)
+            }
+            else if(d['amenities'][i]==='All utility bills included'){
              
               checked.push(3)
-             }
-             else if(d['amenities'][i]==='Mini Bar'){
-          
+            }
+            else if(d['amenities'][i]==='Free Wifi'){
              
               checked.push(4)
-             }
-             else if(d['amenities'][i]==='Bathroom'){
-          
+            }
+            else if(d['amenities'][i]==='Cleaning Service Available'){
              
               checked.push(5)
-             }
-             else if(d['amenities'][i]==='Air Conditioning'){
-          
+            }
+            else if(d['amenities'][i]==='Concierge'){
              
               checked.push(6)
-             }
-           
+            }
+            else if(d['amenities'][i]==='Fully Equipped Kitchen'){
+             
+              checked.push(7)
+            }
+            else if(d['amenities'][i]==='Bedding & Towels'){
+             
+              checked.push(8)
+            }
+            else if(d['amenities'][i]==='Dishwasher'){
+             
+              checked.push(9)
+            }
+            else if(d['amenities'][i]==='Hair Dryer'){
+             
+              checked.push(10)
+            }
+            else if(d['amenities'][i]==='Electric/Gas Stove'){
+             
+              checked.push(11)
+            }
+            else if(d['amenities'][i]==='Dryer'){
+             
+              checked.push(12)
+            }
+            else if(d['amenities'][i]==='Iron & Ironing Board'){
+             
+              checked.push(13)
+            }
+            else if(d['amenities'][i]==='Double Bed'){
+             
+              checked.push(14)
+            }
+            else if(d['amenities'][i]==='Elevator in Building'){
+             
+              checked.push(15)
+            }
+            else if(d['amenities'][i]==='Laptop Friendly Workspace'){
+             
+              checked.push(16)
+            }
+            else if(d['amenities'][i]==='Comfort Cooling'){
+             
+              checked.push(17)
+            }
+            
              
 
 
@@ -108,7 +152,25 @@ export default function EditProperty () {
         }
        
     }
-
+    const amenities_data=[{id:0,name:"24-Hour Check-In"},
+    {id:1 ,name:"Flat Screen Tv"},
+    {id:2 ,name:"Washing Machine"},
+    {id:3 ,name:"All utility bills included"},
+    {id:4 ,name:"Free Wifi"},
+    {id:5 ,name:"Cleaning Service Available"},
+    {id:6 ,name:"Concierge"},
+    {id:7 ,name:"Fully Equipped Kitchen"},
+    {id:8 ,name:"Bedding & Towels"},
+    {id:9 ,name:"Dishwasher"},
+    {id:10 ,name:"Hair Dryer"},
+    {id:11 ,name:"Electric/Gas Stove"},
+    {id:12 ,name:"Dryer"},
+    {id:13 ,name:"Iron & Ironing Board"},
+    {id:14 ,name:"Double Bed"},
+    {id:15 ,name:"Elevator in Building"},
+    {id:16 ,name:"Laptop Friendly Workspace"},
+    {id:17 ,name:"Comfort Cooling"},
+  ];
     const upload = async (e) => {
       e.preventDefault()
       if (image !== null) {
@@ -126,27 +188,72 @@ export default function EditProperty () {
       }
     }
     const handleSubmit=async(e)=>{
-
-      const t=[]
-      if(checked.includes(0)  ){
-        t.push('Tv')
+      var tempLandlord=null
+      if(landlord===null){
+        tempLandlord=userList[0][0]['id']
       }
-      if(checked.includes(1)  ){
-      t.push('WiFi')
+      else{
+      
+         tempLandlord=landlord.firestore._firestoreClient.user.uid
+      }
+   
+      const t=[]
+       
+      if(checked.includes(0)){
+        t.push('24-Hour Check-In');
+      }
+      if(checked.includes(1)){
+        t.push('Flat Screen Tv');
+      }
+      if(checked.includes(2)){
+        t.push('Washing Machine');
+      }
+      if(checked.includes(3)){
+        t.push('All utility bills included');
+      }
+      if(checked.includes(4)){
+        t.push('Free Wifi');
+      }
+      if(checked.includes(5)){
+        t.push('Cleaning Service Available');
+      }
+      if(checked.includes(6)){
+        t.push('Concierge');
+      }
+      if(checked.includes(7)){
+        t.push('Fully Equipped Kitchen');
+      }
+      if(checked.includes(8)){
+        t.push('Bedding & Towels');
+      }
+      if(checked.includes(9)){
+        t.push('Dishwasher');
+      }
+      if(checked.includes(10)){
+        t.push('Hair Dryer');
+      }
+      if(checked.includes(11)){
+        t.push('Electric/Gas Stove');
+      }
+      if(checked.includes(12)){
+        t.push('Dryer');
+      }
+      if(checked.includes(13)){
+        t.push('Iron & Ironing Board');
+      }
+      if(checked.includes(14)){
+        t.push('Double Bed');
+      }
+      if(checked.includes(15)){
+        t.push('Elevator in Building');
+      }
+      if(checked.includes(16)){
+        t.push('Laptop Friendly Workspace');
+      }
+      if(checked.includes(17)){
+        t.push('Comfort Cooling');
       }
       
-      if(checked.includes(3)  ){
-        t.push('Pets Allowed')
-      }
-      if(checked.includes(4)  ){
-        t.push('Mini Bar')
-      }
-      if(checked.includes(5)  ){
-        t.push('Bathroom')
-      }
-      if(checked.includes(6)  ){
-        t.push('Air Conditioning')
-      }
       e.preventDefault();
       setAmenities(t)
        
@@ -163,7 +270,7 @@ export default function EditProperty () {
     
   }
   const db = getFirestore(app);
-  const doc1=doc(db,"users",landlord)
+  const doc1=doc(db,"users",tempLandlord  )
   const user=await getDoc(doc1)
     const data={
       
@@ -427,133 +534,35 @@ export default function EditProperty () {
                       <br></br>
                       {/* tv wifi hotwater pet allowed */}
                       <fieldset>
-                    <legend className="sr-only ">Amenities</legend>
+                    <legend className="sr-only">Amenities</legend>
                     <div className="text-base font-medium text-gray-900" aria-hidden="true">
                     Amenities
                     </div>
-                    <div className="space-y-3 flex flex-row flex-wrap">
+                    <div className="space-y-4 flex flex-wrap">
                    
-                      <div className="flex items-start">
-                        <div className="flex h-5 items-center">
-                          <input
-                            id="tv"
-                            name="Amenities"
-                            checked={checked.includes(0)}
-
-                            value="tv"
-                            type="checkbox"
-                            tabIndex={-1}
-                            onClick={() => handleToggle(0)} 
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          />
-                        </div>
-                        <div className="ml-3 mr-3 text-sm">
-                          <label htmlFor="tv" className="font-medium text-gray-700">
-                            TV
-                          </label>
-                            </div>
-                      </div>
-                      <div className="flex ">
-                        <div className="flex h-5 items-center">
-                          <input
-                            id="wifi"
-                            name="Amenities"
-                            value="wifi"
-                            checked={checked.includes(1)}
-
-                            type="checkbox"
-                            tabIndex={0}
-                            onClick={() => handleToggle(1)} 
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          />
-                        </div>
-                        <div className="ml-3  mr-3 text-sm">
-                          <label htmlFor="wifi" className="font-medium text-gray-700">
-                            WiFi
-                          </label>
-                            </div>
-                      </div>
-                     
-                      <div className="flex">
-                        <div className="flex h-5 items-center">
-                          <input
-                            id="pet-allowed"
-                            name="Amenities"
-                            value="pet allwoed"
-                            type="checkbox"
-                          checked={checked.includes(3)}
-
-                            tabIndex={2}
-                            onClick={() => handleToggle(3)} 
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          />
-                        </div>
-                        <div className="ml-3  mr-3 text-sm">
-                          <label htmlFor="pet-allowed" className="font-medium text-gray-700">
-                            Pets allowed
-                          </label>
-                            </div>
-                      </div>
-                      <div className="flex ">
-                        <div className="flex h-5 items-center">
-                          <input
-                            id="mini-bar"
-                            name="Amenities"
-                            value="Mini Bar"
-                            type="checkbox"
-                            tabIndex={3}
-                            checked={checked.includes(4)}
-                            onClick={() => handleToggle(4)} 
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          />
-                        </div>
-                        <div className="ml-3  mr-3 text-sm">
-                          <label htmlFor="mini-bar" className="font-medium text-gray-700">
-                           Mini Bar
-                          </label>
-                            </div>
-                      </div>
-                      <div className="flex ">
-                        <div className="flex h-5 items-center">
-                          <input
-                            id="bathroom"
-                            name="Amenities"
-                            value="bathroom"
-
-                            checked={checked.includes(5)}
-                            type="checkbox"
-                            tabIndex={4}
-                            onClick={() => handleToggle(5)} 
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          />
-                        </div>
-                        <div className="ml-3  mr-3 text-sm">
-                          <label htmlFor="bathroom" className="font-medium text-gray-700">
-                           Bathroom
-                          </label>
-                            </div>
-                      </div>
-                      <div className="flex ">
-                        <div className="flex h-5 items-center">
-                          <input
-                            id="AC"
-                            name="Amenities"
-                            value="AC"
-                            type="checkbox"
-                            checked={checked.includes(6)}
-                            tabIndex={5}
-                            onClick={() => handleToggle(6)} 
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          />
-                        </div>
-                        <div className="ml-3  mr-3 text-sm">
-                          <label htmlFor="AC" className="font-medium text-gray-700">
-                           Air Conditioning
-                          </label>
-                            </div>
-                      </div>
-                     
-                    
+                   {amenities_data.map((e)=>{
+                   return <div key={e['id']}>
+                     <div  className="flex items-start mb-1">
+                     <div className="flex h-5 items-center">
+                       <input
+                        checked={checked.includes(e['id'])}
+                         id={e['name']}
+                         name="Amenities"
+                         value={e['name']}
+                         type='checkbox'
+                         tabIndex={e['id']}
+                         onClick={() => handleToggle(e['id'])} 
+                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                       />
+                     </div>
+                     <div className="ml-3 mr-3 text-sm">
+                       <label htmlFor={e['name']} className="font-medium text-gray-700">
+                         {e['name']}
+                       </label>
+                         </div>
+                   </div>
+                   </div>
+                   })}
                      
                     </div>
                   </fieldset>

@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }) {
  
   return ( 
     <>
+   
      {noAuthRequired.includes(router.pathname) ? (
         <Component {...pageProps} />
       ) : (
@@ -20,6 +21,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </ProtectedRoute>
       )}
+ 
     </>
   )
 }

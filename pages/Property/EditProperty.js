@@ -188,6 +188,7 @@ export default function EditProperty () {
       }
     }
     const handleSubmit=async(e)=>{
+      if(image!=="" && imgUrlList.length!==0){
       var tempLandlord=null
       if(landlord===null){
         tempLandlord=userList[0][0]['id']
@@ -292,7 +293,7 @@ export default function EditProperty () {
         alert("Updated room Successfully!!");
         router.push("/Property")
       }
-      
+    }
   
     }
 

@@ -45,5 +45,5 @@ export {firebaseConfig}
  export {db};
  export {storage};
  export {app};
- export {secert}
+
   export const auth = getAuth()

@@ -64,7 +64,7 @@ const RequestCard =(props)=>{
        <div className={isPending ?  "visible" : "invisible"}>
        <button
                      type="button"
-                     style={{backgroundColor:"lightgreen"}}
+                     style={{backgroundColor:"rgb(22, 62, 111)"}}
                      className="inline-flex justify-center text-white mr-3 mb-3 rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       onClick={(e)=>handleSolved(e,props.id)}
                   >

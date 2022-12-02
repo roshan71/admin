@@ -14,7 +14,7 @@ const db = getFirestore(app);
   const already = query(collection(db, 'bookings'), orderBy("time","desc"))
   const bookingSnapshot = await getDocs(already);
   const bookingsList = bookingSnapshot.docs.map(doc => [{"id":doc.id},doc.data()]);
-  console.log(bookingsList)
+
   return bookingsList;
 };
 

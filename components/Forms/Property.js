@@ -25,6 +25,7 @@ export default function Property() {
     const [imgUrlList,setImgUrlList] = useState([]);
     const [amenities, setAmenities] = useState([]);
     const [checked, setChecked] = React.useState([0, 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]);
+  const [isAdded, setAdd] = useState(false);
     
     const [isUploaded,setUploaeded]=useState();
     const [isUploaded1,setUploaeded1]=useState();
@@ -60,6 +61,7 @@ export default function Property() {
       
       e.preventDefault()
       if(image!=="" && imgUrlList.length!==0){
+        setAdd(true)
         var tempLandlord=null
         if(landlord===null){
           tempLandlord=userList[0][0]['id']
@@ -165,6 +167,10 @@ export default function Property() {
     if(docRef.id){
       alert("Added room Successfully!!");
       router.push("/Property")
+    }
+    else{
+      setAdd(false)
+      alert("Something went wrong in Adding Room")
     }
       
      
@@ -587,6 +593,7 @@ export default function Property() {
                   Cancel
                 </button>
                     <button
+                    disabled={isAdded}
                       type="submit"
                       className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         // onClick={handleSubmit}

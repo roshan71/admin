@@ -24,6 +24,7 @@ export default function Form() {
   const [profile1, setProfile] = useState();
   const [imageUpload, setImageUpload] = useState(null);
   const [isUploaded, setUploaeded] = useState(false);
+  const [isAdded, setAdd] = useState(false);
 
   const handleImage = async (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -60,7 +61,7 @@ export default function Form() {
 
       if(isUploaded){
 
-
+        setAdd(true)
       const data = {
 
         "name": name1.toString(),
@@ -88,6 +89,7 @@ export default function Form() {
         })
         .catch((error) => {
           console.log(error)
+          setAdd(false)
         const errorCode = error.code;
         alert("Something Wents Wrong!");
         const errorMessage = error.message;
@@ -226,7 +228,7 @@ export default function Form() {
                   Cancel
                 </button>
                 <button
-                  
+                  disabled={isAdded}
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   // onClick={handleSubmit}

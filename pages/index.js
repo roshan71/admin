@@ -1,6 +1,6 @@
 import { getAuth, signInWithEmailAndPassword  } from "firebase/auth";
 import { Router, useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 import { app } from "../utils/firebase";
@@ -10,6 +10,11 @@ export default function Home() {
   const [email,setEmail]=useState();
   const [password,setPassword]=useState();
   const router=useRouter()
+  useEffect(()=>{
+    if(localStorage.getItem("uid")!==null){
+      router.push("/Dashboard")
+    }
+  },[])
   const handleSubmit=(e)=>{
 e.preventDefault();
     const auth = getAuth();
@@ -17,13 +22,13 @@ e.preventDefault();
     .then(async(userCredential) => {
       // Signed in 
       const user = userCredential.user;
-
+     
    
       const db = getFirestore(app);
       const docRef=doc(db,'users',user.uid)
         const docSnap = await getDoc(docRef);
         const da=docSnap.data();
-        console.log(da)
+      
        try{
        if( da["userType"]==="admin"){
          localStorage.setItem('uid', user.uid);
@@ -32,7 +37,7 @@ e.preventDefault();
        }
        else{
          alert("Invalid User Please Try Again")
-          setEmail("")
+         
           setPassword("")
         
        }}

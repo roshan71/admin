@@ -40,8 +40,8 @@ const PropertyCard =(props)=>{
 
    <div>
     <div className=" flex flex-row justify-between  bg-white rounded" style={{width:"95%",margin:'',padding:'20px'}}>
-        <div>
-            
+        <div style={{width:"75%"}}>
+           
             <h2><b>Name : </b>{props.name}</h2>
             <h3><b>Address : </b>{props.addr}</h3>
             <h3><b>Price : </b>{props.price} {props.currency}</h3>
@@ -50,7 +50,7 @@ const PropertyCard =(props)=>{
                       type="button"
                       className="inline-flex text-white justify-center rounded-md mr-2 border border-transparent bg-blue-700 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                        onClick={(e)=>handleEdit(e,props.id,props.user)}
-                       style={{backgroundColor:"lightgreen"}}
+                       style={{backgroundColor:"rgb(22, 62, 111)"}}
                    >
                       Edit
                     </button>
@@ -63,13 +63,13 @@ const PropertyCard =(props)=>{
                       Delete
                     </button>
             </div>
-            <div className="ml-3 max-w-[350px] max-h-[200px] overflow-hidden">
+            <div className="ml-3 max-w-[350px] max-h-[50px] overflow-hidden" >
             <img
       src={props.imgsrc}
       alt="Picture of the author"
-      width="350px"
-      height="200px"
-   
+      width="250px"
+      height="50px"
+      style={{height:"150px",width:"200px"}}
     />
             </div>
         

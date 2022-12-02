@@ -22,6 +22,7 @@ import { add } from 'mathjs';
 export default function UserEdit(props) {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
+    const [tempEmail, setTempEmail] = useState();
     const [address, setAddress] = useState();
     const [profile,setProfile] =useState();
     const [imageUpload,setImageUpload]=useState(null);
@@ -42,6 +43,7 @@ export default function UserEdit(props) {
             const d=docSnap.data();
             setName(d['name'])
             setEmail(d['email'])
+            setTempEmail(d['email'])
             setAddress(d['location'])
             setImageUpload(d['profile'])
         
@@ -86,7 +88,7 @@ export default function UserEdit(props) {
         "name": name.toString(),
         "location": address.toString(),
         "email": email.toString(),
-        "profile": imageUpload.toString()
+        "profile": String(imageUpload)
   
       }
      
@@ -94,8 +96,20 @@ export default function UserEdit(props) {
       const docRef=doc(db,'users',userId);
       await setDoc(docRef,data).then(()=>{
         
-        alert("Updated User Successfully!!");
-        router.push("/User")
+        
+        if(tempEmail!==email){
+        router.push(
+          {
+             pathname:"/User/Temp",
+             query:{
+                id:[userId,String(email)],
+             }
+            
+          })}
+          else{
+            alert("Updated User Successfully!!");
+            router.push('/User')
+          }
       })
       
       

@@ -6,8 +6,8 @@ const getRoom = async () => {
 const db = getFirestore(app);
 const roomCol = collection(db, 'room');
   const roomSnapshot = await getDocs(roomCol);
-  const roomList = roomSnapshot.docs.map(doc => [{"id":doc.id},doc.data()]);
- 
+  const roomList = roomSnapshot.docs.map(doc => [{"id":doc.id,"ref":doc.ref},doc.data()]);
+
   return roomList;
 };
 

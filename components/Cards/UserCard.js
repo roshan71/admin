@@ -39,6 +39,17 @@ const UserCard =(props)=>{
          }
       )
     }
+    const handlePassword=(e,id,name)=>{
+      e.preventDefault();
+      router.push(
+         {
+            pathname:"/User/updatePassword",
+            query:{
+               ed:[id,name]
+            }
+         }
+      )
+    }
     // const handlePass=(e,id)=>{
     //   e.preventDefault();
     //   const auth = getAuth();
@@ -77,11 +88,21 @@ const UserCard =(props)=>{
             <h3>{props.email}</h3>
         </div>
      
-      
-                    <div className="">
+      <div>                    
+        <div>
         <button
                       type="button"
-                      style={{backgroundColor:"lightgreen"}}
+                      style={{backgroundColor:"rgb(22, 62, 111)"}}
+                      className="inline-flex justify-center rounded-md  mb-3 text-white border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                       onClick={(e)=>handlePassword(e,props.id,props.name)}
+                   >
+                      Update Password
+                    </button>
+        </div>
+        <div className="">
+        <button
+                      type="button"
+                      style={{backgroundColor:"rgb(22, 62, 111)"}}
                       className="inline-flex justify-center rounded-md mr-3 mb-3 text-white border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                        onClick={(e)=>handleEdit(e,props.id)}
                    >
@@ -98,6 +119,8 @@ const UserCard =(props)=>{
                     </button>
             
         </div>
+        </div>
+
       
     </div>
   

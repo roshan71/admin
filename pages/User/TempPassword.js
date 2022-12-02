@@ -1,7 +1,6 @@
 
 
 import { async } from '@firebase/util';
-import { typeOf } from 'mathjs';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -25,10 +24,14 @@ export default function TempPassword(props){
 
 export async function getServerSideProps(context) {
     const o=[]
-   const se=require("../../utils/setSercet")
-  //  console.log("se is",typeOf(se.default.secert.private_key))
+    const pk=process.env.SECERT
+    //  console.log("psfojcojv sndo vnosdjo jdsobj oldfsjb o",pk)
+  //  const se=require("../../utils/setSercet")
+  //  console.log(se.default.setSercet)
+  //  console.log(se)
+  //  console.log(se)
     // require('dotenv').config
-    //console.log(context.query['ed'])
+    // console.log(context.query['ed'])
     // const serviceAccount={
     //   type:process.env.TYPE,
     //   project_id:process.env.PROJECT_ID,
@@ -41,18 +44,18 @@ export async function getServerSideProps(context) {
     //   auth_provider_x509_cert_url:process.env.AUTH_PROVIDER_X509_CERT_URL ,
     //   client_x509_cert_url:process.env.CLIENT_CERT_URL, 
     // }
-   // console.log(serviceAccount)
-    //console.log(context)
+    // console.log(context)
     if(Object.keys(context.query).length!==0){
         
-  //  const serviceAccount = require("../../secret.json");
-      // console.log("DA is",serviceAccount)
+
+   //const serviceAccount = require("../../secret.json");
+
       
 
     const admin=require('firebase-admin')
      if (admin.apps.length === 0) {
        admin.initializeApp({
-         credential: admin.credential.cert(se.default.secert),
+         credential: admin.credential.cert(pk),
          databaseURL: "https://fir-c155e.firebaseio.com"
        });
     }

@@ -27,6 +27,7 @@ const nextConfig = {
     TOKEN_URI:process.env.TOKEN_URI ,
     AUTH_PROVIDER_X509_CERT_URL:process.env.AUTH_PROVIDER_X509_CERT_URL ,
     CLIENT_CERT_URL:process.env.CLIENT_CERT_URL, 
+    SECERT:process.env.SECERT
   }
   ,
 

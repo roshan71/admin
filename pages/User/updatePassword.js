@@ -42,7 +42,7 @@ export default function UserEdit(props) {
       if(password.length>=6) {
       if(password===conformPass){
        
-        console.log(se)
+      
         router.push(
           {
              pathname:"/User/TempPassword",

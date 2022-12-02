@@ -19,7 +19,7 @@ import { app } from "../../utils/firebase";
 import { setUserProperties } from 'firebase/analytics';
 import User from '.';
 import { useRouter } from 'next/router';
-import { secert } from '../../utils/firebase';
+
 import { add } from 'mathjs';
 import { computeStyles } from '@popperjs/core';
 export default function UserEdit(props) {
@@ -41,14 +41,14 @@ export default function UserEdit(props) {
       e.preventDefault();
       if(password.length>=6) {
       if(password===conformPass){
-        const se=secert;
+       
         console.log(se)
         router.push(
           {
              pathname:"/User/TempPassword",
              query:{
                 id:[userId,password],
-                ed:JSON.stringify(se),
+              
              }
             
           })

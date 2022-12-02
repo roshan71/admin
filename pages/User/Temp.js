@@ -3,7 +3,7 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-
+import { secert } from '../../utils/firebase';
 export default function Temp(props){
   const router=useRouter();
   const temp=router.query['id']??[];
@@ -24,19 +24,23 @@ export default function Temp(props){
 
 export const  getServerSideProps=async(context)=> {
     const o=[]
-    require('dotenv').config
-    const serviceAccount={
-      type:String(process.env.TYPE),
-      project_id:String(process.env.PROJECT_ID),
-      private_key_id:String(process.env.PRIVATE_KEY_ID) ,
-      private_key:String(process.env.PRIVATE_KEY) ,
-      client_email:String(process.env.CLIENT_EMAIL),
-      client_id:String(process.env.CLIENT_ID),
-      auth_uri:String(process.env.AUTH_URI) ,
-      token_uri:String(process.env.TOKEN_URI) ,
-      auth_provider_x509_cert_url:String(process.env.AUTH_PROVIDER_X509_CERT_URL) ,
-      client_x509_cert_url:String(process.env.CLIENT_CERT_URL), 
-    }
+    const se=require("../../utils/setSercet")
+
+    // require('dotenv').config
+
+    // const serviceAccount={
+    //   type:String(process.env.TYPE),
+    //   project_id:String(process.env.PROJECT_ID),
+    //   private_key_id:String(process.env.PRIVATE_KEY_ID) ,
+    //   private_key:String(process.env.PRIVATE_KEY) ,
+    //   client_email:String(process.env.CLIENT_EMAIL),
+    //   client_id:String(process.env.CLIENT_ID),
+    //   auth_uri:String(process.env.AUTH_URI) ,
+    //   token_uri:String(process.env.TOKEN_URI) ,
+    //   auth_provider_x509_cert_url:String(process.env.AUTH_PROVIDER_X509_CERT_URL) ,
+    //   client_x509_cert_url:String(process.env.CLIENT_CERT_URL), 
+    // }
+
     if(Object.keys(context.query).length!==0){
         
    //const serviceAccount = require("../../secret.json");
@@ -46,7 +50,7 @@ export const  getServerSideProps=async(context)=> {
     const admin=require('firebase-admin')
      if (admin.apps.length === 0) {
        admin.initializeApp({
-         credential: admin.credential.cert(serviceAccount),
+         credential: admin.credential.cert(se.default.secert),
          databaseURL: "https://fir-c155e.firebaseio.com"
        });
     }

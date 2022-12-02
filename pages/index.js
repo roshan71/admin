@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 
 import { app } from "../utils/firebase";
 import { collection, getDoc,setDoc,getFirestore,doc } from "firebase/firestore"; 
-
+import { firebaseConfig } from "../utils/firebase";
 export default function Home() {
   const [email,setEmail]=useState();
   const [password,setPassword]=useState();
   const router=useRouter()
+  console.log(firebaseConfig)
   useEffect(()=>{
     if(localStorage.getItem("uid")!==null){
       router.push("/Dashboard")

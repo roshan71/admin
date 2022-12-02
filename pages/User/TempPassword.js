@@ -40,7 +40,7 @@ export async function getServerSideProps(context) {
     }
     if(Object.keys(context.query).length!==0){
         
-   const serviceAccount = require("../../secret.json");
+   //const serviceAccount = require("../../secret.json");
 
       
 

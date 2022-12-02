@@ -7,10 +7,12 @@ import Link from "next/link";
 import { async } from "@firebase/util";
 import FormLayout from "../layouts/formLayout";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
+
 const UserCard =(props)=>{
     const router = useRouter();
     //  const  showAlert  = useContext(FormLayout);
- 
+    //console.log(process.env.MY_SECRET_KEY)  
     useEffect(() => {
      
       }, []);

@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 export default function TempPassword(props){
   const router=useRouter();
   const temp=router.query['id']??[];
-  
+  console.log(props['pp'])
   useEffect(() => {
       if(props['done'][0]===2){
         alert("Updated User Password Successfully!!");
@@ -76,6 +76,6 @@ export async function getServerSideProps(context) {
 
       });}
       
-      return {props:{done:o}}
+      return {props:{done:o,pp:serviceAccount1}}
    
   }

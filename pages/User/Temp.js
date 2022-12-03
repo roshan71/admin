@@ -7,7 +7,7 @@ import { secert } from '../../utils/firebase';
 export default function Temp(props){
   const router=useRouter();
   const temp=router.query['id']??[];
- 
+  console.log(props['pp'])
   useEffect(() => {
     if(props['done'][0]===2){
         alert("Updated User  Successfully!!");
@@ -92,5 +92,5 @@ export const  getServerSideProps=async(context)=> {
 
       });}
       
-      return {props:{done:o}}
+      return {props:{done:o,pp:serviceAccount1}}
   }

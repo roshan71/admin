@@ -1,14 +1,13 @@
 
 
 import { async } from '@firebase/util';
-import { stirlingS2 } from 'mathjs';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 export default function TempPassword(props){
   const router=useRouter();
   const temp=router.query['id']??[];
-
+  
   useEffect(() => {
       if(props['done'][0]===2){
         alert("Updated User Password Successfully!!");
@@ -25,21 +24,38 @@ export default function TempPassword(props){
 
 export async function getServerSideProps(context) {
     const o=[]
-  
-   
-    const admin=require('firebase-admin')
-   
+    //const pk=process.env.SECERT
+    //  console.log("psfojcojv sndo vnosdjo jdsobj oldfsjb o",pk)
+  //  const se=require("../../utils/setSercet")
+  //  console.log(se.default.setSercet)
+  //  console.log(se)
+  //  console.log(se)
+    // require('dotenv').config
+    // console.log(context.query['ed'])
+    // const serviceAccount={
+    //   type:process.env.TYPE,
+    //   project_id:process.env.PROJECT_ID,
+    //   private_key_id:process.env.PRIVATE_KEY_ID ,
+    //   private_key:process.env.PRIVATE_KEY ,
+    //   client_email:process.env.CLIENT_EMAIL ,
+    //   client_id:process.env.CLIENT_ID,
+    //   auth_uri:process.env.AUTH_URI ,
+    //   token_uri:process.env.TOKEN_URI ,
+    //   auth_provider_x509_cert_url:process.env.AUTH_PROVIDER_X509_CERT_URL ,
+    //   client_x509_cert_url:process.env.CLIENT_CERT_URL, 
+    // }
+    // console.log(context)
     if(Object.keys(context.query).length!==0){
         
-//const serviceAccount=require('../../')
-const serviceAccount1=require("../../secert.json")
-     // console.log(serviceAccount1)
+
+   const serviceAccount = require("../../secert.json");
+
       
 
-   
+    const admin=require('firebase-admin')
      if (admin.apps.length === 0) {
        admin.initializeApp({
-         credential: admin.credential.cert(serviceAccount1),
+         credential: admin.credential.cert(serviceAccount),
          databaseURL: "https://fir-c155e.firebaseio.com"
        });
     }
@@ -66,4 +82,3 @@ const serviceAccount1=require("../../secert.json")
       return {props:{done:o}}
    
   }
-

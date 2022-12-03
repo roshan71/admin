@@ -16,21 +16,7 @@ function FormLayout({children}){
   useEffect(() => {
     setUser();
   }, []);
-  const k=JSON.parse(process.env.PRIVATE_KEY)
-    
-    const serviceAccount1={
-      "type":process.env.TYPE,
-      "project_id": process.env.PROJECT_ID,
-      "private_key_id": process.env.PRIVATE_KEY_ID,
-     k,
-      "client_email": process.env.CLIENT_EMAIL,
-      "client_id": process.env.CLIENT_ID,
-      "auth_uri": process.env.AUTH_URI,
-      "token_uri": process.env.TOKEN_URI,
-      "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_X509_CERT_URL,
-      "client_x509_cert_url": process.env.CLIENT_CERT_URL
-    }
-    console.log(k)
+  
   const setUser = async () => {
     var list = await getUsers();
     setUserList(list);

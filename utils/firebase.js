@@ -50,7 +50,7 @@ import { exp, stirlingS2 } from 'mathjs';
       "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_X509_CERT_URL,
       "client_x509_cert_url": process.env.CLIENT_CERT_URL
     }
-  console.log(serviceAccount1)
+
 const app = initializeApp(firebaseConfig);
 
 const db=getFirestore();

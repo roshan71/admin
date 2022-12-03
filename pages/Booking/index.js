@@ -32,7 +32,7 @@ const Booking=(e)=>{
    
     <div>
     {bookingList.map((e) => ( 
-            <BookingCard key={e[0]['id']} id={e[0]['id']} custName={e[1]['custName']} bookDate={e[1]['bookDate']} price={e[1]['amount']} status={e[1]['status']}/>
+            <BookingCard key={e[0]['id']} id={e[0]['id']} roomref={e[1]['roomRef']} custName={e[1]['custName']} bookDate={e[1]['bookDate']} price={e[1]['amount']} status={e[1]['status']}/>
 
           ))}
       

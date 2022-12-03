@@ -35,7 +35,7 @@ const Property=(e)=>{
     
      <div>
      {roomList.map((e) => ( 
-            <PropertyCard user={e[1]['landlord']} key={e[0]['id']} id={e[0]['id']} name={e[1]['name']} addr={e[1]['address']} price={e[1]['price']} currency={e[1]['currency']} desc={e[1]['shortDes']} imgsrc={e[1]['img']}/>
+            <PropertyCard user={e[1]['landlord']} key={e[0]['id']} id={e[0]['id']}  name={e[1]['name']} addr={e[1]['address']} price={e[1]['price']} currency={e[1]['currency']} desc={e[1]['shortDes']} imgsrc={e[1]['img']}/>
           ))}
       
      </div>

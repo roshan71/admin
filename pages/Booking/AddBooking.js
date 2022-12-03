@@ -108,7 +108,7 @@ function getDaysArray(start, end) {
     
     if(docRef.id){
       // console.log(docRef)
-      alert("Added room Successfully!!");
+      alert("Added Booking Successfully!!");
       router.push("/Booking")
     }
     else{

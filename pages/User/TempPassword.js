@@ -23,7 +23,7 @@ export default function TempPassword(props){
     return(<><h1>{String(props['pp'])}</h1></>)
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
     const o=[]
     require('dotenv').config
     
@@ -42,10 +42,10 @@ export async function getStaticProps(context) {
       "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_X509_CERT_URL,
       "client_x509_cert_url": process.env.CLIENT_CERT_URL
     }
-    const { locales } = context.query
-    if(Object.keys(locales).length!==0){
+  
+    if(Object.keys(context.query).length!==0){
         
-const serviceAccount=require('../../secert.json')
+//const serviceAccount=require('../../')
     
       
       

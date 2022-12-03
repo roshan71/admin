@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 export default function TempPassword(props){
   const router=useRouter();
   const temp=router.query['id']??[];
-  console.log(props['pp'])
+
   useEffect(() => {
       if(props['done'][0]===2){
         alert("Updated User Password Successfully!!");
@@ -20,29 +20,15 @@ export default function TempPassword(props){
       }
 
   }, []);
-    return(<><h1>{String(props['pp'])}</h1></>)
+    return(<><h1>Updating...</h1></>)
 }
 
 export async function getServerSideProps(context) {
     const o=[]
-    require('dotenv').config
-    
-    const admin=require('firebase-admin')
-    const k=JSON.parse(process.env.PRIVATE_KEY)
-    
-    const serviceAccount1={
-      "type":process.env.TYPE,
-      "project_id": process.env.PROJECT_ID,
-      "private_key_id": process.env.PRIVATE_KEY_ID,
-     k,
-      "client_email": process.env.CLIENT_EMAIL,
-      "client_id": process.env.CLIENT_ID,
-      "auth_uri": process.env.AUTH_URI,
-      "token_uri": process.env.TOKEN_URI,
-      "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_X509_CERT_URL,
-      "client_x509_cert_url": process.env.CLIENT_CERT_URL
-    }
   
+    const {serviceAccount1}=require("../../utils/firebase")
+    const admin=require('firebase-admin')
+   
     if(Object.keys(context.query).length!==0){
         
 //const serviceAccount=require('../../')
@@ -77,6 +63,7 @@ export async function getServerSideProps(context) {
 
       });}
       
-      return {props:{done:o,pp:serviceAccount1}}
+      return {props:{done:o}}
    
   }
+

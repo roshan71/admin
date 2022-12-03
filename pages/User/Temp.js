@@ -24,16 +24,20 @@ export default function Temp(props){
 
 export const  getServerSideProps=async(context)=> {
     const o=[]
-    
-    require('dotenv').config
    
-    const pk=process.env.SECERT
+    require('dotenv').config
+  
+    
+    
+    
+
+   
     // console.log(pk)
     // const serviceAccount={
     //   type:String(process.env.TYPE),
     //   project_id:String(process.env.PROJECT_ID),
     //   private_key_id:String(process.env.PRIVATE_KEY_ID) ,
-       
+    //   private_key:pk['private_key'],
     //   client_email:String(process.env.CLIENT_EMAIL),
     //   client_id:String(process.env.CLIENT_ID),
     //   auth_uri:String(process.env.AUTH_URI) ,
@@ -44,14 +48,14 @@ export const  getServerSideProps=async(context)=> {
     // console.log(serviceAccount)
     if(Object.keys(context.query).length!==0){
         
-  //  const serviceAccount = require("../../secert.json");
+    const serviceAccount = require("../../secert.json");
   //     console.log(serviceAccount)
       
 
     const admin=require('firebase-admin')
      if (admin.apps.length === 0) {
        admin.initializeApp({
-         credential: admin.credential.cert(pk),
+         credential: admin.credential.cert(serviceAccount),
          databaseURL: "https://fir-c155e.firebaseio.com"
        });
     }

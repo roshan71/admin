@@ -1,13 +1,17 @@
 import FormLayout from "../../components/layouts/formLayout"
 
 
+import { getFirestore,  } from 'firebase/firestore';
+import { app } from "../../utils/firebase";
+import {  doc, setDoc,getDoc } from 'firebase/firestore';
+import { async } from "@firebase/util";
+import { useEffect } from "react";
 
 
 const User=()=>{
-   
-  
-      //console.log(process.env.APIKEY)
-      return(
+
+
+ return(
         <>
       
         <FormLayout>

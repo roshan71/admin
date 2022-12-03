@@ -23,7 +23,7 @@ export default function TempPassword(props){
     return(<><h1>{String(props['pp'])}</h1></>)
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
     const o=[]
     require('dotenv').config
     
@@ -42,8 +42,8 @@ export async function getServerSideProps(context) {
       "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_X509_CERT_URL,
       "client_x509_cert_url": process.env.CLIENT_CERT_URL
     }
-  
-    if(Object.keys(context.query).length!==0){
+    const { locales } = context.query
+    if(Object.keys(locales).length!==0){
         
 const serviceAccount=require('../../secert.json')
     
@@ -53,7 +53,7 @@ const serviceAccount=require('../../secert.json')
    
      if (admin.apps.length === 0) {
        admin.initializeApp({
-         credential: admin.credential.cert(serviceAccount),
+         credential: admin.credential.cert(serviceAccount1),
          databaseURL: "https://fir-c155e.firebaseio.com"
        });
     }

@@ -1,6 +1,7 @@
 
 
 import { async } from '@firebase/util';
+import { stirlingS2 } from 'mathjs';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -19,7 +20,7 @@ export default function TempPassword(props){
       }
 
   }, []);
-    return(<><h1>Updating...</h1></>)
+    return(<><h1>{String(props['pp'])}</h1></>)
 }
 
 export async function getServerSideProps(context) {
@@ -44,7 +45,7 @@ export async function getServerSideProps(context) {
   
     if(Object.keys(context.query).length!==0){
         
-
+const serviceAccount=require('../../secert.json')
     
       
       

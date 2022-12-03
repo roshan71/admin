@@ -30,6 +30,7 @@ function FormLayout({children}){
       "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_X509_CERT_URL,
       "client_x509_cert_url": process.env.CLIENT_CERT_URL
     }
+    console.log(k)
   const setUser = async () => {
     var list = await getUsers();
     setUserList(list);
@@ -55,7 +56,7 @@ function FormLayout({children}){
               </div>
                 </Link>
 
-<h2>{process.env.PRIVATE_KEY}</h2>
+
 {userList.map((e) => ( 
         
             <UserCard key={e[0]["id"]} id={e[0]["id"]}name={e[1]['name']} email={e[1]['email']}/>

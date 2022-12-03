@@ -7,7 +7,7 @@ import { secert } from '../../utils/firebase';
 export default function Temp(props){
   const router=useRouter();
   const temp=router.query['id']??[];
-  console.log(props['pp'])
+
   useEffect(() => {
     if(props['done'][0]===2){
         alert("Updated User  Successfully!!");
@@ -60,10 +60,10 @@ export const  getServerSideProps=async(context)=> {
     // }
     // console.log(serviceAccount)
     if(Object.keys(context.query).length!==0){
-        console.log(serviceAccount1)
+        //console.log(serviceAccount1)
     // const serviceAccount = require("../../secert.json");
   //     console.log(serviceAccount)
-      
+  const serviceAccount1=require("../../secert.json")
 
     const admin=require('firebase-admin')
      if (admin.apps.length === 0) {

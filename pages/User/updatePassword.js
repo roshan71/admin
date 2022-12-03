@@ -112,6 +112,7 @@ export default function UserEdit(props) {
                  </div>
                   <div className="bg-white px-4 py-5 sm:p-6">
                     <div className="grid grid-cols-6 gap-6">
+                   
                       <div className="col-span-6 sm:col-span-3">
                         <label htmlFor="pass" className="block text-sm font-medium text-gray-700">
                             Password

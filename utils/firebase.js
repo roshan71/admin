@@ -37,7 +37,7 @@ import { exp, stirlingS2 } from 'mathjs';
   }
 
   const k=JSON.parse(process.env.PRIVATE_KEY)
-    
+    console.log(k)
     const serviceAccount1={
       "type":process.env.TYPE,
       "project_id": process.env.PROJECT_ID,

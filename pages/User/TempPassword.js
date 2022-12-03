@@ -26,14 +26,14 @@ export default function TempPassword(props){
 export async function getServerSideProps(context) {
     const o=[]
   
-    const {serviceAccount1}=require("../../utils/firebase")
+   
     const admin=require('firebase-admin')
    
     if(Object.keys(context.query).length!==0){
         
 //const serviceAccount=require('../../')
-    
-      
+const serviceAccount1=require("../../secert.json")
+     // console.log(serviceAccount1)
       
 
    

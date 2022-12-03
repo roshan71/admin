@@ -69,13 +69,13 @@ export async function getServerSideProps(context) {
       .then((userRecord) => {
         // See the UserRecord reference doc for the contents of userRecord.
         o.push(2)
-        //console.log('Successfully updated user', userRecord.toJSON());
-      
+        console.log('Successfully updated user', userRecord.toJSON());
+        return{props:{done:o}}
           })
       .catch((error) => {
         console.log(error)
        o.push(1)
-      
+       return{props:{done:o}}
 
       });}
       

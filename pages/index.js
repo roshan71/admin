@@ -68,7 +68,7 @@ e.preventDefault();
               className="mx-auto h-12 w-auto"
               src="./logo.png"
               alt="Your Company"
-              style={{height:"100px",width:"120px" }}
+              style={{height:"25%",width:"25%" }}
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
              Admin Login

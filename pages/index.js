@@ -70,7 +70,7 @@ e.preventDefault();
               alt="Your Company"
               style={{height:"25%",width:"25%" }}
             />
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            <h2 className="mt-6 text-center  font-bold tracking-tight text-gray-900" style={{fontSize:"2rem"}}>
              Admin Login
             </h2>
             

@@ -61,13 +61,14 @@ e.preventDefault();
   }
     return(
 <>
-<div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" style={{height:"100vh"}}>
         <div className="w-full max-w-md space-y-8">
           <div>
             <img
               className="mx-auto h-12 w-auto"
-              src="./admin.png"
+              src="./logo.png"
               alt="Your Company"
+              style={{height:"100px",width:"120px" }}
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
              Admin Login
@@ -114,7 +115,7 @@ e.preventDefault();
             <div>
               <button
                 type="submit"
-                style={{backgroundColor:"blue" }}
+                style={{backgroundColor:"#163e6f" }}
                 onClick={(e)=>handleSubmit(e)}
                 className="group relative flex w-full justify-center bg-blue-500 rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >

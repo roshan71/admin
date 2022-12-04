@@ -67,8 +67,8 @@ export default function Sidebar() {
            
             {/* Heading */}
             <div className="bg-white   ">
-              <div className="flex flex-row justify-center">
-            <img src="/logo.png" style={{height:"100px",width:"120px" }}></img>
+              <div className="flex flex-row  justify-center" style={{padding:"2rem"}}>
+            <img src="/logo1.png" ></img>
             </div>
             </div>
             {/* Navigation */}
